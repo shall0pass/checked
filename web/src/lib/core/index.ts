@@ -7,6 +7,9 @@ import {
 } from '$src/lib/core/types'
 import { nanoid } from 'nanoid'
 
+declare const __DEMO__: boolean
+const isDemoMode = typeof __DEMO__ !== 'undefined' && __DEMO__
+
 // Base
 
 export function createItem(doc: Root, item: Item) {
@@ -213,6 +216,17 @@ export function defaultState(): Root {
     lists: {
       [defaultSpecialId]: {
         name: 'Xmas Market'
+      }
+    }
+  }
+
+  if (!isDemoMode) {
+    return {
+      items: {},
+      globalOrder: [],
+      specials: {
+        order: [],
+        lists: {}
       }
     }
   }

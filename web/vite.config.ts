@@ -23,6 +23,8 @@ const appVersion = JSON.stringify(
   JSON.parse(readFileSync(path.resolve('../package.json'), 'utf-8')).version
 )
 const useCloudflarePlugin = process.env.VITE_USE_CLOUDFLARE_PLUGIN === 'true'
+const demoMode =
+  process.env.DEMO === 'true' || process.env.VITE_DEMO === 'true'
 
 const cloudflarePlugin =
   useCloudflarePlugin && process.env.npm_lifecycle_event !== 'check'
@@ -84,7 +86,8 @@ export default defineConfig(({ mode }) => {
   return {
     define: {
       __BUILD_TIME__: time,
-      __APP_VERSION__: appVersion
+      __APP_VERSION__: appVersion,
+      __DEMO__: JSON.stringify(demoMode)
     },
 
     server: {
