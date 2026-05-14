@@ -1,0 +1,59 @@
+# =========================
+# Build stage
+# =========================
+FROM node:22-bookworm-slim AS builder
+
+WORKDIR /app
+
+RUN npm install -g pnpm
+
+# Copy workspace config, manifests, and source
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
+COPY web ./web
+COPY server ./server
+
+RUN pnpm install --no-frozen-lockfile
+
+# Build web (vite) and server (tsc)
+RUN pnpm --filter @onlygroceries/web build
+RUN pnpm --filter @onlygroceries/server build
+
+# =========================
+# Production stage
+# =========================
+FROM node:22-bookworm-slim
+
+WORKDIR /app
+
+RUN npm install -g pnpm
+
+# Copy package manifests and workspace config
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
+COPY web/package.json ./web/
+COPY server/package.json ./server/
+
+# Copy node_modules (includes vite needed for preview) and built artifacts from builder
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/web/node_modules ./web/node_modules
+COPY --from=builder /app/server/node_modules ./server/node_modules
+COPY --from=builder /app/web/dist ./web/dist
+COPY --from=builder /app/server/dist ./server/dist
+
+# Copy web source and config files needed for rebuild (preview runs vite preview)
+COPY web/src ./web/src
+COPY web/vite.config.ts ./web/
+COPY web/vite.config.d.ts ./web/
+COPY web/index.html ./web/
+COPY web/wrangler.jsonc ./web/
+COPY web/tsconfig.json ./web/
+COPY web/tsconfig.node.json ./web/
+COPY web/tailwind.config.ts ./web/
+COPY web/postcss.config.js ./web/
+COPY web/svelte.config.js ./web/
+COPY web/components.json ./web/
+
+EXPOSE 5173
+EXPOSE 8080
+
+# Start both the web preview server and the sync server
+CMD ["sh", "-c", "pnpm --filter @onlygroceries/web preview & pnpm --filter @onlygroceries/server preview"]

@@ -1,0 +1,21 @@
+{
+  "name": "onlygroceries",
+  "private": true,
+  "version": "0.2.0",
+  "packageManager": "pnpm@11.0.9",
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm run -F web -F server dev",
+    "build": "pnpm run -r build",
+    "preview": "pnpm run -r preview"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.11.1",
+    "prettier-plugin-svelte": "^3.5.1",
+    "prettier-plugin-tailwindcss": "^0.8.0",
+    "web": "^0.0.2"
+  },
+  "dependencies": {
+    "pnpm": "^11.0.9"
+  }
+}
