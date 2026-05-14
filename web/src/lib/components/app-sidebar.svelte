@@ -2,7 +2,7 @@
   import * as Sidebar from './ui/sidebar/index.js'
   import { useSidebar } from './ui/sidebar/index.js'
 
-  import Command from 'lucide-svelte/icons/command'
+  import Check from 'lucide-svelte/icons/check'
   import Download from 'lucide-svelte/icons/download'
   import House from 'lucide-svelte/icons/house'
   import ListTodo from 'lucide-svelte/icons/list-todo'
@@ -341,10 +341,10 @@
                 <div
                   class="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg"
                 >
-                  <Command class="size-4" />
+                  <Check class="size-6" style="color: var(--highlight-color); stroke-width: 5;" />
                 </div>
                 <div class="grid flex-1 text-left text-sm leading-tight">
-                  <span class="truncate font-semibold">OnlyGroceries</span>
+                  <span class="truncate font-semibold">Checked</span>
                   <span class="truncate text-xs">{appVersion}</span>
                 </div>
               </a>

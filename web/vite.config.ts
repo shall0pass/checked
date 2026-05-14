@@ -42,21 +42,21 @@ export default defineConfig(({ mode }) => {
       injectRegister: false,
 
       manifest: {
-        name: 'Grocery List',
-        short_name: 'Grocery',
+        name: 'Checked',
+        short_name: 'Checked',
         display: 'standalone',
         background_color: '#ffffff',
         start_url: '/',
         theme_color: '#ffffff',
         icons: [
           {
-            src: '/pwa-sidebar-icon.svg',
+            src: '/checked.svg',
             type: 'image/svg+xml',
             purpose: 'maskable',
             sizes: 'any'
           },
           {
-            src: '/pwa-sidebar-icon.svg',
+            src: '/checked.svg',
             type: 'image/svg+xml',
             sizes: 'any'
           }
