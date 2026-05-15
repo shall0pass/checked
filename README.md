@@ -30,7 +30,7 @@ This makes the following workflow:
 1. You add your regular items to the list.
 2. Before going to the shop, you click on the item you're going to buy.
 3. Once you're in the shop, switch to `Shopping List` tab to see only the items you need. No distractions!
-4. The `Shopping List` will show all items added from across all your lists and provide them in foldable sections for organziation.
+4. The `Shopping List` will show all items added from across all your lists and provide them in foldable sections for organization.
 
 ### Special lists
 
@@ -42,7 +42,7 @@ Light and Dark mode are available along with personalized color highlighting for
 
 Create multiple lists and easily switch between them.
 
-Export a backup of your list id's to import within another browser or share with another user.  Every list in your browser will be exported.  If you dont want to share every list with someone, use the Copy/Share button to share a single list.
+Export a backup of your list id's to import within another browser or share with another user.  Every list in your browser will be exported.  If you do not want to share every list with someone, use the Copy/Share button to share a single list.
 
 
 ## Self Hosting

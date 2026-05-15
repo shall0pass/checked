@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "dev": "node --loader ts-node/esm --no-warnings=ExperimentalWarning src/index.ts",
+    "dev": "ALLOWED_TOKEN=dev node --loader ts-node/esm --no-warnings=ExperimentalWarning src/index.ts",
     "preview": "node ./dist/index.js"
   },
   "type": "module",
