@@ -47,4 +47,4 @@ Export a backup of your list id's to import within another browser or share with
 
 It's recommended to install this using the docker-compose.yaml
 
-There is no security built in to the application.  It is recommended you use something like Cloudflare Access or Tailscale to access your OnlyGroceries list when away.
+There is no security built in to the application.  It is recommended you use something like Cloudflare Access or Tailscale to access your Checked list when away.
