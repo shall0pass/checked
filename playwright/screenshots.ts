@@ -11,7 +11,7 @@ import { chromium, devices } from 'playwright';
 
   // Always force viewport size for consistency
   const setViewport = async () => {
-    await page.setViewportSize({ width: 390, height: 844 });
+    await page.setViewportSize({ width: 420, height: 700 });
   };
 
   // Step 1: Main page
