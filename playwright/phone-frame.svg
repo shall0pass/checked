@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="214.23422mm"
+   height="115.76217mm"
+   viewBox="0 0 214.23422 115.76217"
+   version="1.1"
+   id="svg8">
+  <defs
+     id="defs2">
+    <linearGradient
+       id="linearGradient1926">
+      <stop
+         id="stop1922"
+         offset="0"
+         style="stop-color:#ba00ff;stop-opacity:1" />
+      <stop
+         id="stop1924"
+         offset="1"
+         style="stop-color:#005c94;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient1663">
+      <stop
+         id="stop1659"
+         offset="0"
+         style="stop-color:#0e232e;stop-opacity:1;" />
+      <stop
+         id="stop1661"
+         offset="1"
+         style="stop-color:#364e59;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.1706647,0.19423653,-0.72679245,4.3804076,105.02768,-292.85797)"
+       r="34.11235"
+       fy="93.892349"
+       fx="50.765697"
+       cy="93.892349"
+       cx="50.765697"
+       id="radialGradient1665"
+       xlink:href="#linearGradient1663" />
+    <filter
+       id="filter1675"
+       style="color-interpolation-filters:sRGB">
+      <feBlend
+         id="feBlend1677"
+         in2="SourceGraphic"
+         mode="normal" />
+    </filter>
+    <filter
+       height="1.008306"
+       y="-0.004152996"
+       width="1.0163399"
+       x="-0.0081699546"
+       id="filter1757"
+       style="color-interpolation-filters:sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur1759"
+         stdDeviation="0.20400452" />
+    </filter>
+    <filter
+       height="6.7445765"
+       y="-2.8722882"
+       width="1.1356016"
+       x="-0.06780079"
+       id="filter1863"
+       style="color-interpolation-filters:sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur1865"
+         stdDeviation="1.7592554" />
+    </filter>
+    <radialGradient
+       r="34.11235"
+       fy="93.892349"
+       fx="50.765697"
+       cy="93.892349"
+       cx="50.765697"
+       gradientTransform="matrix(1.1706647,0.19423653,-0.72679245,4.3804076,105.02768,-292.85797)"
+       gradientUnits="userSpaceOnUse"
+       id="radialGradient1886"
+       xlink:href="#linearGradient1663" />
+    <radialGradient
+       r="34.11235"
+       fy="93.892349"
+       fx="50.765697"
+       cy="93.892349"
+       cx="50.765697"
+       gradientTransform="matrix(1.1706647,0.19423653,-0.72679245,4.3804076,105.02768,-292.85797)"
+       gradientUnits="userSpaceOnUse"
+       id="radialGradient1912"
+       xlink:href="#linearGradient1663" />
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="-97.15834"
+       x2="169.01208"
+       y1="182.27966"
+       x1="76.782288"
+       id="linearGradient1928"
+       xlink:href="#linearGradient1926" />
+    <radialGradient
+       r="34.11235"
+       fy="93.892349"
+       fx="50.765697"
+       cy="93.892349"
+       cx="50.765697"
+       gradientTransform="matrix(1.0245133,0.16998711,-0.63605619,3.8335365,198.11981,-272.76949)"
+       gradientUnits="userSpaceOnUse"
+       id="radialGradient2004"
+       xlink:href="#linearGradient1663" />
+    <linearGradient
+       gradientTransform="matrix(0.8751552,0,0,0.8751552,106.20429,-16.473323)"
+       y2="-97.15834"
+       x2="169.01208"
+       y1="182.27966"
+       x1="76.782288"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient2006"
+       xlink:href="#linearGradient1926" />
+  </defs>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     transform="translate(-7.0343857,-14.455333)">
+    <g
+       transform="matrix(0.8751552,0,0,0.8751552,-44.439726,-15.731985)"
+       id="g1882">
+      <rect
+         style="fill:url(#radialGradient1886);fill-opacity:1;stroke-width:0.264583"
+         id="rect833"
+         width="68.224701"
+         height="128.88988"
+         x="61.232143"
+         y="35.340775"
+         ry="7.2319036" />
+      <rect
+         ry="4.3795667"
+         y="40.350327"
+         x="65.380379"
+         height="117.89341"
+         width="59.928219"
+         id="rect1643"
+         style="fill:#ffffff;stroke-width:0.23716" />
+      <g
+         id="g1657"
+         transform="translate(21.261161)">
+        <circle
+           r="1.1525998"
+           cy="37.818638"
+           cx="71.628235"
+           id="path1645"
+           style="fill:#364e59;stroke-width:0.147228" />
+        <circle
+           style="fill:#0e232e;stroke-width:0.0896168"
+           id="circle1647"
+           cx="71.628235"
+           cy="37.818638"
+           r="0.70158249" />
+        <circle
+           style="fill:#364e59;stroke-width:0.119489"
+           id="circle1649"
+           cx="74.735245"
+           cy="37.818638"
+           r="0.93544334" />
+        <circle
+           r="0.56940031"
+           cy="37.818638"
+           cx="74.735245"
+           id="circle1651"
+           style="fill:#0e232e;stroke-width:0.0727324" />
+      </g>
+      <rect
+         style="fill:none;stroke:#364e59;stroke-width:0.23716;filter:url(#filter1757)"
+         id="rect1679"
+         width="59.928219"
+         height="117.89341"
+         x="65.380379"
+         y="40.350327"
+         ry="4.3795667" />
+      <rect
+         style="fill:#0e232e;stroke:none;stroke-width:0.264583;filter:url(#filter1863)"
+         id="rect1761"
+         width="62.2738"
+         height="1.4699824"
+         x="64.011047"
+         y="164.10349"
+         ry="0.73499119"
+         transform="matrix(1.0274811,0,0,0.6187459,-2.6147737,61.709449)" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         x="81.650841"
+         y="67.351913"
+         id="text1869"><tspan
+           id="tspan1867"
+           x="81.650841"
+           y="67.351913"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583">08:40</tspan></text>
+    </g>
+    <g
+       id="g1964"
+       transform="matrix(0.8751552,0,0,0.8751552,30.777536,-15.731985)">
+      <rect
+         ry="7.2319036"
+         y="35.340775"
+         x="61.232143"
+         height="128.88988"
+         width="68.224701"
+         id="rect1888"
+         style="fill:url(#radialGradient1912);fill-opacity:1;stroke-width:0.264583" />
+      <rect
+         style="fill:url(#linearGradient1928);fill-opacity:1;stroke-width:0.23716"
+         id="rect1890"
+         width="59.928219"
+         height="117.89341"
+         x="65.380379"
+         y="40.350327"
+         ry="4.3795667" />
+      <g
+         transform="translate(21.261161)"
+         id="g1900">
+        <circle
+           style="fill:#364e59;stroke-width:0.147228"
+           id="circle1892"
+           cx="71.628235"
+           cy="37.818638"
+           r="1.1525998" />
+        <circle
+           r="0.70158249"
+           cy="37.818638"
+           cx="71.628235"
+           id="circle1894"
+           style="fill:#0e232e;stroke-width:0.0896168" />
+        <circle
+           r="0.93544334"
+           cy="37.818638"
+           cx="74.735245"
+           id="circle1896"
+           style="fill:#364e59;stroke-width:0.119489" />
+        <circle
+           style="fill:#0e232e;stroke-width:0.0727324"
+           id="circle1898"
+           cx="74.735245"
+           cy="37.818638"
+           r="0.56940031" />
+      </g>
+      <rect
+         ry="4.3795667"
+         y="40.350327"
+         x="65.380379"
+         height="117.89341"
+         width="59.928219"
+         id="rect1902"
+         style="fill:none;stroke:#364e59;stroke-width:0.23716;filter:url(#filter1757)" />
+      <rect
+         transform="matrix(1.0274811,0,0,0.6187459,-2.6147737,61.709449)"
+         ry="0.73499119"
+         y="164.10349"
+         x="64.011047"
+         height="1.4699824"
+         width="62.2738"
+         id="rect1904"
+         style="fill:#0e232e;stroke:none;stroke-width:0.264583;filter:url(#filter1863)" />
+      <text
+         id="text1908"
+         y="67.88636"
+         x="81.421791"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;stroke-width:0.264583"
+           y="67.88636"
+           x="81.421791"
+           id="tspan1906">08:40</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.06203px;line-height:1.25;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0.601265px;word-spacing:0px;opacity:0.740648;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.101551"
+         x="81.213554"
+         y="72.63372"
+         id="text1932"><tspan
+           id="tspan1930"
+           x="81.213554"
+           y="72.63372"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.06203px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0.601265px;fill:#ffffff;stroke-width:0.101551">7 JUN 2020</tspan></text>
+      <path
+         id="path1942"
+         d="m 92.941887,147.28575 2.339947,-1.36011 2.289906,1.36011"
+         style="fill:none;stroke:#ffffff;stroke-width:0.434892;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.75285px;line-height:1.25;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.0688215"
+         x="84.273621"
+         y="151.58893"
+         id="text1946"><tspan
+           id="tspan1944"
+           x="84.273621"
+           y="151.58893"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.75285px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;stroke-width:0.0688215">swipe to unlock</tspan></text>
+    </g>
+    <rect
+       ry="6.3290381"
+       y="14.455333"
+       x="159.79193"
+       height="112.79865"
+       width="59.707203"
+       id="rect1970"
+       style="fill:url(#radialGradient2004);fill-opacity:1;stroke-width:0.231551" />
+    <rect
+       style="fill:url(#linearGradient2006);fill-opacity:1;stroke-width:0.207552"
+       id="rect1972"
+       width="52.446491"
+       height="103.17503"
+       x="163.42227"
+       y="18.839472"
+       ry="3.8328006" />
+    <g
+       transform="matrix(0.8751552,0,0,0.8751552,124.8111,-16.473323)"
+       id="g1982">
+      <circle
+         style="fill:#364e59;stroke-width:0.147228"
+         id="circle1974"
+         cx="71.628235"
+         cy="37.818638"
+         r="1.1525998" />
+      <circle
+         r="0.70158249"
+         cy="37.818638"
+         cx="71.628235"
+         id="circle1976"
+         style="fill:#0e232e;stroke-width:0.0896168" />
+      <circle
+         r="0.93544334"
+         cy="37.818638"
+         cx="74.735245"
+         id="circle1978"
+         style="fill:#364e59;stroke-width:0.119489" />
+      <circle
+         style="fill:#0e232e;stroke-width:0.0727324"
+         id="circle1980"
+         cx="74.735245"
+         cy="37.818638"
+         r="0.56940031" />
+    </g>
+    <rect
+       ry="4.3795667"
+       y="196.71344"
+       x="-31.124985"
+       height="117.89341"
+       width="59.928219"
+       id="rect1984"
+       style="fill:none;stroke:#364e59;stroke-width:0.23716;filter:url(#filter1757)"
+       transform="matrix(0.8751552,0,0,0.8751552,190.66146,-153.31532)" />
+    <rect
+       transform="matrix(0.89920543,0,0,0.54149869,103.91595,37.532027)"
+       ry="0.73499119"
+       y="164.10349"
+       x="64.011047"
+       height="1.4699824"
+       width="62.2738"
+       id="rect1986"
+       style="fill:#0e232e;stroke:none;stroke-width:0.264583;filter:url(#filter1863)" />
+    <path
+       id="path1996"
+       d="m 187.54286,112.42457 2.04782,-1.1903 2.00402,1.1903"
+       style="fill:none;stroke:#ffffff;stroke-width:0.380598;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.40917px;line-height:1.25;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.0602295"
+       x="179.9568"
+       y="116.19053"
+       id="text2000"><tspan
+         id="tspan1998"
+         x="179.9568"
+         y="116.19053"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.40917px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;stroke-width:0.0602295">swipe to unlock</tspan></text>
+    <path
+       id="rect2024"
+       style="opacity:0.718205;fill:#0e232e;fill-opacity:1;stroke-width:0.207552"
+       d="m 167.25512,18.839677 c -2.02972,0 -3.67716,1.56292 -3.81889,3.55534 h 52.41851 c -0.14173,-1.99242 -1.78917,-3.55534 -3.81889,-3.55534 z" />
+    <text
+       id="text1990"
+       y="21.329737"
+       x="206.84402"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.31021px;line-height:1.25;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.0577552"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.31021px;font-family:'Century Gothic';-inkscape-font-specification:'Century Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;stroke-width:0.0577552"
+         y="21.329737"
+         x="206.84402"
+         id="tspan1988">08:40</tspan></text>
+    <path
+       id="rect2033"
+       style="fill:#ffffff;stroke:none;stroke-width:0.0661458;stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 204.93986,19.700607 v 0.21699 h -0.23358 v 1.49918 h 1.13172 v -1.49918 h -0.20051 v -0.21699 z" />
+    <path
+       d="m -156.71855,128.12094 a 1.668264,1.668264 0 0 1 -1.66826,1.66827 v -1.66827 z"
+       style="fill:#ffffff;stroke:none;stroke-width:0.0904928;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path2040"
+       transform="rotate(-135)" />
+    <path
+       d="m -156.84833,128.25006 a 1.4093467,1.4093467 0 0 1 -1.40935,1.40935 v -1.40935 z"
+       transform="rotate(-135)"
+       id="path2042"
+       style="fill:#ffffff;stroke:none;stroke-width:0.0764481;stroke-miterlimit:4;stroke-dasharray:none" />
+    <g
+       id="g2608"
+       style="opacity:0.109726"
+       transform="matrix(0.8751552,0,0,0.8751552,190.66146,-153.31532)">
+      <path
+         d="m -15.703307,209.3873 -0.780794,1.39317 -1.589857,0.14653 1.083396,1.17259 -0.351974,1.55761 1.450501,-0.66811 1.372462,0.81582 -0.187143,-1.58547 1.20006,-1.05315 -1.565969,-0.31215 z m -0.03225,0.61316 0.46983,1.09216 1.166212,0.23253 -0.89387,0.78439 0.139354,1.18054 -1.022079,-0.6076 -1.079813,0.4977 0.261989,-1.15984 -0.807073,-0.87357 1.184132,-0.10909 z"
+         style="opacity:1;fill:#ffffff;stroke:none;stroke-width:0.0509647;stroke-miterlimit:4;stroke-dasharray:none"
+         id="path2046" />
+      <path
+         id="path2589"
+         style="opacity:1;fill:#ffffff;stroke:none;stroke-width:0.0509647;stroke-miterlimit:4;stroke-dasharray:none"
+         d="m -4.0218824,217.32761 -0.780794,1.39317 -1.589857,0.14653 1.083396,1.17259 -0.351974,1.55761 1.450501,-0.66811 1.372462,0.81582 -0.187143,-1.58547 1.20006,-1.05315 -1.565969,-0.31215 z m -0.03225,0.61316 0.46983,1.09216 1.166212,0.23253 -0.89387,0.78439 0.139354,1.18054 -1.022079,-0.6076 -1.079813,0.4977 0.261989,-1.15984 -0.807073,-0.87357 1.184132,-0.10909 z" />
+      <path
+         d="m 5.5981143,206.33333 -0.780794,1.39317 -1.589857,0.14653 1.083396,1.17259 -0.351974,1.55761 1.450501,-0.66811 1.372462,0.81582 -0.187143,-1.58547 1.20006,-1.05315 -1.565969,-0.31215 z m -0.03225,0.61316 0.46983,1.09216 1.166212,0.23253 -0.89387,0.78439 0.139354,1.18054 -1.022079,-0.6076 -1.079813,0.4977 0.261989,-1.15984 -0.807073,-0.87357 1.184132,-0.10909 z"
+         style="opacity:1;fill:#ffffff;stroke:none;stroke-width:0.0509647;stroke-miterlimit:4;stroke-dasharray:none"
+         id="path2591" />
+      <path
+         id="path2593"
+         style="opacity:1;fill:#ffffff;stroke:none;stroke-width:0.0509647;stroke-miterlimit:4;stroke-dasharray:none"
+         d="m 16.592396,215.34253 -0.780794,1.39317 -1.589857,0.14653 1.083396,1.17259 -0.351974,1.55761 1.450501,-0.66811 1.372462,0.81582 -0.187143,-1.58547 1.20006,-1.05315 -1.565969,-0.31215 z m -0.03225,0.61316 0.46983,1.09216 1.166212,0.23253 -0.89387,0.78439 0.139354,1.18054 -1.022079,-0.6076 -1.079813,0.4977 0.261989,-1.15984 -0.807073,-0.87357 1.184132,-0.10909 z" />
+      <path
+         d="m 14.301921,235.42236 -0.780794,1.39317 -1.589857,0.14653 1.083396,1.17259 -0.351974,1.55761 1.450501,-0.66811 1.372462,0.81582 -0.187143,-1.58547 1.20006,-1.05315 -1.565969,-0.31215 z m -0.03225,0.61316 0.46983,1.09216 1.166212,0.23253 -0.89387,0.78439 0.139354,1.18054 -1.022079,-0.6076 -1.079813,0.4977 0.261989,-1.15984 -0.807073,-0.87357 1.184132,-0.10909 z"
+         style="opacity:1;fill:#ffffff;stroke:none;stroke-width:0.0509647;stroke-miterlimit:4;stroke-dasharray:none"
+         id="path2595" />
+      <path
+         id="path2597"
+         style="opacity:1;fill:#ffffff;stroke:none;stroke-width:0.0509647;stroke-miterlimit:4;stroke-dasharray:none"
+         d="m -16.848544,240.7668 -0.780794,1.39317 -1.589857,0.14653 1.083396,1.17259 -0.351974,1.55761 1.450501,-0.66811 1.372462,0.81582 -0.187143,-1.58547 1.20006,-1.05315 -1.565969,-0.31215 z m -0.03225,0.61316 0.46983,1.09216 1.166212,0.23253 -0.89387,0.78439 0.139354,1.18054 -1.022079,-0.6076 -1.079813,0.4977 0.261989,-1.15984 -0.807073,-0.87357 1.184132,-0.10909 z" />
+      <path
+         d="m 1.39891,247.25648 -0.78079396,1.39317 -1.589857,0.14653 1.083396,1.17259 -0.351974,1.55761 1.45050096,-0.66811 1.372462,0.81582 -0.187143,-1.58547 1.20006,-1.05315 -1.565969,-0.31215 z m -0.03225,0.61316 0.46983,1.09216 1.166212,0.23253 -0.89387,0.78439 0.139354,1.18054 -1.022079,-0.6076 -1.07981296,0.4977 0.261989,-1.15984 -0.807073,-0.87357 1.184132,-0.10909 z"
+         style="opacity:1;fill:#ffffff;stroke:none;stroke-width:0.0509647;stroke-miterlimit:4;stroke-dasharray:none"
+         id="path2599" />
+    </g>
+    <flowRoot
+       id="flowRoot4760"
+       xml:space="preserve"
+       transform="matrix(0.8751552,0,0,0.8751552,42.116822,-15.731985)"><flowRegion
+         id="flowRegion4738"><text
+   id="text4736"
+   xml:space="preserve"
+   style="font-style:normal;font-weight:normal;font-size:12.0931px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.302327"
+   x="168.40129"
+   y="131.88921"><tspan
+     id="tspan4734"
+     x="168.40129"
+     y="131.88921"
+     style="stroke-width:0.302327">sada</tspan></text>
+    </flowRegion><flowPara
+         id="flowPara4740">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut eu metus id lectus vestibulum ultrices. Nunc metus. Curabitur accumsan felis in erat. Cras gravida. Pellentesque tempor. Sed fringilla. Donec interdum vestibulum libero. Ut venenatis. Duis sem velit, ultrices et, fermentum auctor, rhoncus ut, ligula. Suspendisse lectus. Nam molestie nisl at metus. Aliquam imperdiet lobortis metus. Suspendisse molestie sem. Nullam sapien mauris, venenatis at, fermentum at, tempus eu, urna. Mauris et dolor. Donec ut urna. Donec diam eros, tristique sit amet, pretium vel, pellentesque ut, neque. Aliquam sed erat. Integer accumsan. Suspendisse lectus. Mauris ac massa vestibulum nisl facilisis viverra. Fusce venenatis ligula in pede. Aenean justo ipsum, luctus ut, volutpat laoreet, vehicula in, libero. Cras facilisis felis sit amet lorem. Sed a lorem ut est tincidunt consectetuer. </flowPara><flowPara
+         id="flowPara4742" /><flowPara
+         id="flowPara4744">Integer accumsan. Mauris et dolor. Donec at diam a tellus dignissim vestibulum. Ut venenatis. Integer tempus malesuada pede. Quisque vehicula porttitor odio. Nam nisl quam, posuere non, volutpat sed, semper vitae, magna. Suspendisse potenti. Maecenas convallis dui. Nam pharetra. Nam sed nisl nec elit suscipit ullamcorper. Phasellus nisi metus, tempus sit amet, ultrices ac, porta nec, felis. Ut eu metus id lectus vestibulum ultrices. Nunc metus. Mauris et pede. In consectetuer, lorem eu lobortis egestas, velit odio imperdiet eros, sit amet sagittis nunc mi ac neque. </flowPara><flowPara
+         id="flowPara4746" /><flowPara
+         id="flowPara4748">Phasellus auctor enim eget sem. Nam id neque. Vestibulum non arcu a ante feugiat vestibulum. Aliquam justo lectus, iaculis a, auctor sed, congue in, nisl. Suspendisse potenti. Donec ut urna. Aenean justo ipsum, luctus ut, volutpat laoreet, vehicula in, libero. Nullam venenatis gravida orci. Proin diam augue, semper vitae, varius et, viverra id, felis. Mauris et pede. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus nisi metus, tempus sit amet, ultrices ac, porta nec, felis. Quisque dictum quam vel neque. Sed at turpis vitae velit euismod aliquet. In hac habitasse platea dictumst. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec rutrum venenatis dui. Donec ut urna. Nam pharetra. Nam sed nisl nec elit suscipit ullamcorper. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec gravida, ante vel ornare lacinia, orci enim porta est, eget sollicitudin lectus lectus eget lacus. Etiam pharetra lacus sed velit imperdiet bibendum. Ut eu metus id lectus vestibulum ultrices. Proin diam augue, semper vitae, varius et, viverra id, felis. </flowPara><flowPara
+         id="flowPara4750" /><flowPara
+         id="flowPara4752">Sed fringilla. Etiam cursus purus interdum libero. Pellentesque et arcu. Mauris et pede. Nulla sed lacus. Morbi urna. Suspendisse potenti. Sed quis elit. Duis sem velit, ultrices et, fermentum auctor, rhoncus ut, ligula. Aliquam justo lectus, iaculis a, auctor sed, congue in, nisl. Mauris et pede. Integer tempus malesuada pede. Aliquam vel nibh. Etiam pede nunc, vestibulum vel, rutrum et, tincidunt eu, enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus eu orci. Morbi urna. Nam a nunc. Vestibulum non arcu a ante feugiat vestibulum. Quisque aliquam, nulla ac scelerisque convallis, nisi ligula sagittis risus, at nonummy arcu urna pulvinar nibh. Mauris sed nulla quis nisi interdum tempor. Praesent a eros. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Vestibulum non arcu a ante feugiat vestibulum. Quisque vehicula porttitor odio. Nam consectetuer mollis dolor. Pellentesque suscipit accumsan massa. Nullam venenatis gravida orci. </flowPara><flowPara
+         id="flowPara4754" /><flowPara
+         id="flowPara4756">Aenean scelerisque metus eget sem. Nam pharetra. Curabitur accumsan felis in erat. Nullam venenatis gravida orci. Proin diam augue, semper vitae, varius et, viverra id, felis. Donec nonummy lacinia leo. Ut venenatis. Maecenas convallis dui. Curabitur lorem risus, sagittis vitae, accumsan a, iaculis id, metus. Donec interdum vestibulum libero. Morbi volutpat. Quisque pretium rutrum ligula. Pellentesque convallis dolor vel libero. Integer accumsan. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Pellentesque et arcu. Nam massa turpis, nonummy et, consectetuer id, placerat ac, ante. Morbi turpis arcu, egestas congue, condimentum quis, tristique cursus, leo. Suspendisse viverra placerat tortor. Mauris urna sem, suscipit vitae, dignissim id, ultrices sed, nunc. Vivamus feugiat. Nunc in turpis ac lacus eleifend sagittis. Vivamus posuere, ante eu tempor dictum, felis nibh facilisis sem, eu auctor metus nulla non lorem. Vivamus quis mi. Pellentesque et arcu. Morbi turpis arcu, egestas congue, condimentum quis, tristique cursus, leo. Ut eu metus id lectus vestibulum ultrices. Curabitur lorem risus, sagittis vitae, accumsan a, iaculis id, metus. Sed a lorem ut est tincidunt consectetuer. </flowPara><flowPara
+         id="flowPara4758" /></flowRoot>
+    <flowRoot
+       id="flowRoot4927"
+       xml:space="preserve"
+       transform="matrix(0.8751552,0,0,0.8751552,42.116822,-15.731985)"><flowRegion
+         id="flowRegion4905"><text
+   id="text4903"
+   xml:space="preserve"
+   style="font-style:normal;font-weight:normal;font-size:12.0931px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.302327"
+   x="168.40129"
+   y="131.88921"><tspan
+     id="tspan4901"
+     x="168.40129"
+     y="131.88921"
+     style="stroke-width:0.302327">sada</tspan></text>
+      </flowRegion><flowPara
+         id="flowPara4907">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec sit amet enim. In hac habitasse platea dictumst. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec gravida, ante vel ornare lacinia, orci enim porta est, eget sollicitudin lectus lectus eget lacus. Quisque dictum quam vel neque. Praesent aliquet, neque pretium congue mattis, ipsum augue dignissim ante, ac pretium nisl lectus at magna. Aenean luctus vulputate turpis. Etiam pede nunc, vestibulum vel, rutrum et, tincidunt eu, enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse potenti. Mauris urna sem, suscipit vitae, dignissim id, ultrices sed, nunc. Nam nisl quam, posuere non, volutpat sed, semper vitae, magna. Suspendisse potenti. Etiam non neque ac mi vestibulum placerat. Morbi turpis arcu, egestas congue, condimentum quis, tristique cursus, leo. Mauris et dolor. Pellentesque et arcu. </flowPara><flowPara
+         id="flowPara4909" /><flowPara
+         id="flowPara4911">Quisque aliquam, nulla ac scelerisque convallis, nisi ligula sagittis risus, at nonummy arcu urna pulvinar nibh. Pellentesque viverra dolor non nunc. Proin diam augue, semper vitae, varius et, viverra id, felis. Nam sed nisl nec elit suscipit ullamcorper. Mauris tempor ultrices justo. Morbi turpis arcu, egestas congue, condimentum quis, tristique cursus, leo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec gravida, ante vel ornare lacinia, orci enim porta est, eget sollicitudin lectus lectus eget lacus. Proin lectus orci, venenatis pharetra, egestas id, tincidunt vel, eros. Aenean ligula. Cras ac enim vel dui vestibulum suscipit. Mauris et dolor. Aenean ligula. Aliquam justo lectus, iaculis a, auctor sed, congue in, nisl. Nunc metus. Quisque malesuada nulla sed pede volutpat pulvinar. Suspendisse lectus. Curabitur nunc ante, ullamcorper vel, auctor a, aliquam at, tortor. Nulla sed lacus. Nullam venenatis gravida orci. Phasellus magna sem, vulputate eget, ornare sed, dignissim sit amet, pede. </flowPara><flowPara
+         id="flowPara4913" /><flowPara
+         id="flowPara4915">Sed at turpis vitae velit euismod aliquet. Donec interdum vestibulum libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec gravida, ante vel ornare lacinia, orci enim porta est, eget sollicitudin lectus lectus eget lacus. Donec diam eros, tristique sit amet, pretium vel, pellentesque ut, neque. Donec tempus quam quis neque. Quisque pretium rutrum ligula. Pellentesque tempor. Nulla sed lacus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Mauris urna sem, suscipit vitae, dignissim id, ultrices sed, nunc. Proin dolor sapien, adipiscing id, sagittis eu, molestie viverra, mauris. Donec interdum vestibulum libero. Sed at turpis vitae velit euismod aliquet. </flowPara><flowPara
+         id="flowPara4917" /><flowPara
+         id="flowPara4919">Mauris sed nulla quis nisi interdum tempor. Integer tempus malesuada pede. Suspendisse potenti. Cras gravida. Praesent scelerisque. Morbi turpis arcu, egestas congue, condimentum quis, tristique cursus, leo. Aenean turpis ipsum, rhoncus vitae, posuere vitae, euismod sed, ligula. Morbi turpis arcu, egestas congue, condimentum quis, tristique cursus, leo. Donec at diam a tellus dignissim vestibulum. Suspendisse potenti. In commodo, dolor quis fermentum ullamcorper, urna massa volutpat massa, vitae mattis purus arcu nec nulla. Nam laoreet dui sed magna. In leo ante, venenatis eu, volutpat ut, imperdiet auctor, enim. Donec rutrum venenatis dui. Cras ac enim vel dui vestibulum suscipit. Nam id neque. Mauris tempor ultrices justo. Etiam cursus purus interdum libero. Sed at turpis vitae velit euismod aliquet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer fringilla. Vestibulum viverra varius enim. Suspendisse fermentum. Aliquam metus. Aliquam vel nibh. Nulla sed lacus. Phasellus magna sem, vulputate eget, ornare sed, dignissim sit amet, pede. Praesent scelerisque. Aliquam imperdiet lobortis metus. </flowPara><flowPara
+         id="flowPara4921" /><flowPara
+         id="flowPara4923">Nulla sagittis condimentum ligula. Integer fringilla. Suspendisse molestie sem. Aliquam metus. Suspendisse potenti. Suspendisse molestie sem. Suspendisse lectus. Phasellus magna sem, vulputate eget, ornare sed, dignissim sit amet, pede. Nam massa turpis, nonummy et, consectetuer id, placerat ac, ante. Nam rhoncus, lectus vel hendrerit congue, nisl lorem feugiat ante, in fermentum erat nulla tristique arcu. Aenean ultrices turpis. Praesent scelerisque. Mauris tempus diam. Fusce consectetuer tellus ut nisl. Aliquam vel nibh. Vestibulum non arcu a ante feugiat vestibulum. Suspendisse viverra placerat tortor. Etiam non neque ac mi vestibulum placerat. Nulla sed lacus. Praesent aliquet, neque pretium congue mattis, ipsum augue dignissim ante, ac pretium nisl lectus at magna. Curabitur nunc ante, ullamcorper vel, auctor a, aliquam at, tortor. Etiam sodales orci nec ligula. Aenean luctus vulputate turpis. Donec ut purus. Mauris ac massa vestibulum nisl facilisis viverra. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse potenti. </flowPara><flowPara
+         id="flowPara4925" /></flowRoot>
+  </g>
+  <g
+     id="g5108"
+     transform="translate(-7.0343857,-14.455333)" />
+</svg>
