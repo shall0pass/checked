@@ -124,7 +124,7 @@
         specialLists
       }
 
-      const fileName = 'onlygroceries-lists-and-items.json'
+      const fileName = 'checked-lists-and-items.json'
       const contents = JSON.stringify(payload, null, 2)
 
       const win = window as SavePickerWindow

@@ -1,5 +1,5 @@
 {
-  "name": "@onlygroceries/server",
+  "name": "@checked/server",
   "private": true,
   "version": "0.2.0",
   "description": "An automerge-repo-sync-server with dead simple authorization",

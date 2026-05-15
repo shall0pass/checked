@@ -7,7 +7,7 @@ services:
       - "5174:8080" #sync server
     restart: unless-stopped
     volumes:
-      - /path/to/docker/onlygroceries:/app/server/data
+      - /path/to/docker/checked:/app/server/data
     environment:
       - ALLOWED_TOKEN=secret-token
       - VITE_ALLOWED_HOSTS=checked.example.com

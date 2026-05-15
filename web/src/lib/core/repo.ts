@@ -12,16 +12,16 @@ export interface RootDocLink {
 }
 
 export const syncServerUrl = persistentAtom<string>(
-  'onlygroceries:syncServerUrl',
+  'checked:syncServerUrl',
   // 'ws://localhost:8080?access-token=og'
   'wss://sync.automerge.org'
 )
 
 export const persistedRootUrl = persistentAtom<AutomergeUrl>(
-  'onlygroceries:rootDocUrl'
+  'checked:rootDocUrl'
 )
 
-const rootDocLinks = persistentAtom<string>('onlygroceries:rootDocLinks', '[]')
+const rootDocLinks = persistentAtom<string>('checked:rootDocLinks', '[]')
 
 export const repo = new Repo({
   storage: new IndexedDBStorageAdapter(),

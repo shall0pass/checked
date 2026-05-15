@@ -3,12 +3,12 @@ import { persistentAtom } from '@nanostores/persistent'
 export type ThemePreference = 'system' | 'light' | 'dark'
 
 export const themePreference = persistentAtom<ThemePreference>(
-  'onlygroceries:theme',
+  'checked:theme',
   'system'
 )
 
 export const highlightColor = persistentAtom<string>(
-  'onlygroceries:highlightColor',
+  'checked:highlightColor',
   '#2563eb'
 )
 
