@@ -16,7 +16,7 @@
     "deploy": "npm run build && wrangler deploy"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.35.0",
+    "@cloudflare/vite-plugin": "^1.37.0",
     "@internationalized/date": "^3.12.1",
     "@sveltejs/vite-plugin-svelte": "7.1.2",
     "@tailwindcss/postcss": "^4.3.0",
