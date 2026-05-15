@@ -2,13 +2,7 @@
 
 Minimalistic grocery list app with focus on frequently used everyday products.
 
-|              At home              |            In the shop                 |            Sidebar                 |            Settings                 |            Settings                 |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| ![](readme-assets/Staples.png) | ![](readme-assets/ShoppingLIst.png) | ![](readme-assets/Sidebar.png) | ![](readme-assets/Settings_1.png) | ![](readme-assets/Settings_2.png) |
-
-
-
-
+![](playwright/checked-demo.gif)
 
 > The app is in its pr
 e-pre-alpha stage. You can try it at https://checked-95k.pages.dev/. Please, remember
