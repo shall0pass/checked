@@ -14,6 +14,8 @@ Minimalistic grocery list app with focus on frequently used everyday products.
 e-pre-alpha stage. You can try it at https://checked-95k.pages.dev/. Please, remember
 that the demo version uses public automerge sync server and the data can be erased at any time.
 
+Forked from original project https://github.com/nonscalable/OnlyGroceries
+
 ## Goals
 
 - Minimalistic app with clear functionality.
