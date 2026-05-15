@@ -15,7 +15,7 @@ const config: Config = {
       center: true,
       padding: '2rem',
       screens: {
-        sm: '320px'
+        sm: '450px'
       }
     },
     extend: {
