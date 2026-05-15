@@ -67,6 +67,7 @@ coverage/
 
 # Node.js server data
 server/data/
+server/automerge-repo-data/
 
 # Android/keystore
 keystore.properties
