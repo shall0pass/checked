@@ -10,6 +10,8 @@ that the demo version uses public automerge sync server and the data can be eras
 
 Forked from original project https://github.com/nonscalable/OnlyGroceries
 
+Note:  This project utilized AI heavily for changes to the original project.
+
 ## Goals
 
 - Minimalistic app with clear functionality.
