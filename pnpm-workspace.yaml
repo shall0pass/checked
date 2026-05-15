@@ -4,5 +4,6 @@ packages:
 allowBuilds:
   cbor-extract: false
   esbuild: false
+  gifsicle: true
   sharp: false
   workerd: false
