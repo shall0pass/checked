@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "DEMO=true pnpm run -F web -F server dev",
     "build": "pnpm run -r build",
-    "preview": "pnpm run -r preview"
+    "preview": "pnpm run -r preview",
+    "generate:images": "npx tsx playwright/screenshots.ts && npx gifsicle --colors 256 --delay 300 --loop --optimize=3 --resize-fit 420x700 -o playwright/checked-demo.gif playwright/step1-main.gif playwright/step2-sidebar.gif playwright/step3-settings.gif playwright/step4-back-main.gif && convert playwright/phone-frame-single-resized.png playwright/checked-demo.gif -gravity center -composite playwright/checked-demo-framed.gif"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2.11.1",
