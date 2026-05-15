@@ -1,4 +1,4 @@
-# Only Groceries
+# Checked
 
 Minimalistic grocery list app with focus on frequently used everyday products.
 
@@ -11,10 +11,8 @@ Minimalistic grocery list app with focus on frequently used everyday products.
 
 
 > The app is in its pr
-e-pre-alpha stage. You can try it at [`https://onlygroceries-br5.pages.dev/`](https://onlygroceries-br5.pages.dev/). Please, remember
+e-pre-alpha stage. You can try it at https://checked-95k.pages.dev/. Please, remember
 that the demo version uses public automerge sync server and the data can be erased at any time.
-
-The application in this fork has a superset of features not found upstream and the link above will not accurately depict what is now possible.
 
 ## Goals
 
@@ -25,14 +23,9 @@ The application in this fork has a superset of features not found upstream and t
 
 ### Main Page
 
-The main page consists of two tabs: `Staples` and `Shopping List`.
+The `Shopping List` page is the focus of the application.  Items can be added to the shopping list by entering them into the text box.  An item from the `Staples` list or a user added list in the `Special` section of the sidebar.
 
-The `Staples` keep the list of your everyday products e.g. bread, milk, anything. Here you can:
-
-- Manage regular products list: add, remove or re-arrange products.
-- Add products to the `Shopping List` by clicking on them.
-
-The `Shopping List` contains the products you're going to buy next time.
+Items can be added, edited, removed, rearranged, or moved to a different list within each of the lists.  Items added to the `Shopping List` that are not included in other lists can be moved to a list at any time from the `Shopping List`.
 
 This makes the following workflow:
 
@@ -51,7 +44,7 @@ Light and Dark mode are available along with personalized color highlighting for
 
 Create multiple lists and easily switch between them.
 
-Export a backup of your list id's to import within another browser.
+Export a backup of your list id's to import within another browser or share with another user.  Every list in your browser will be exported.  If you dont want to share every list with someone, use the Copy/Share button to share a single list.
 
 
 ## Self Hosting
