@@ -80,7 +80,7 @@
   $inspect($router)
 </script>
 
-<Sidebar.Provider class="pt-safe">
+<Sidebar.Provider class="pt-safe flex flex-row">
   <AppSidebar rootDoc={root} />
 
     <Sidebar.Inset class="touch-pan-y pb-24 min-w-0 max-w-full overflow-x-hidden w-0 flex-1">
