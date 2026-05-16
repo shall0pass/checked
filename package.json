@@ -8,7 +8,8 @@
     "dev": "DEMO=true pnpm run -F web -F server dev",
     "build": "pnpm run -r build",
     "preview": "pnpm run -r preview",
-    "generate:images": "npx tsx playwright/screenshots.ts && pnpm run png-to-gif",
+    "generate:images": "npx tsx playwright/screenshots.ts && pnpm run add-borders && pnpm run png-to-gif",
+    "add-borders": "for img in playwright/step1-main.png playwright/step1a-main.png playwright/step2-sidebar.png playwright/step3-settings.png; do convert \"$img\" -bordercolor black -border 4 \"$img\"; done",
     "png-to-gif": "convert -bordercolor black -border 4 -delay 300 -loop 0 playwright/step1-main.png playwright/step1a-main.png playwright/step2-sidebar.png playwright/step3-settings.png playwright/checked-demo.gif"
   },
   "devDependencies": {
