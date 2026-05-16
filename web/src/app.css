@@ -4,9 +4,14 @@
 @layer base {
   html, body {
     overflow-x: hidden;
+    max-width: 100%;
   }
   input, button {
     min-width: 0;
+  }
+  [data-sidebar="provider"] {
+    overflow-x: hidden;
+    max-width: 100vw;
   }
   :root {
     --background: 0 0% 100%;

@@ -83,7 +83,7 @@
 <Sidebar.Provider class="pt-safe">
   <AppSidebar rootDoc={root} />
 
-  <Sidebar.Inset class="touch-pan-y pb-24">
+    <Sidebar.Inset class="touch-pan-y pb-24 min-w-0 max-w-full overflow-x-hidden w-0 flex-1"></Sidebar.Inset>
     <Header />
 
     {#if $root}

@@ -13,10 +13,11 @@ const config: Config = {
   theme: {
     container: {
       center: true,
-      padding: '2rem',
-      screens: {
-       sm: '450px',
-      }
+      padding: {
+        DEFAULT: '1rem',   // 16px on mobile — breathing room without overflow
+        sm: '1.5rem',      // 24px from 640px+
+        lg: '2rem',        // 32px from 1024px+
+    },
     },
     extend: {
       colors: {
