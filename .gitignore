@@ -1,6 +1,5 @@
 # Playwright generated images and frames
 playwright/*.png
-playwright/*.gif
 playwright/*.svg
 
 # Local environment/version files
