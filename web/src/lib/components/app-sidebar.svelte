@@ -329,8 +329,9 @@
   })
 </script>
 
-{#if $rootDoc}
+
   <Sidebar.Root class="border-r-0" variant="inset">
+    {#if $rootDoc}
     <Sidebar.Header class="pt-safe">
       <Sidebar.Menu>
         <!-- Logo -->
@@ -456,5 +457,6 @@
         </Sidebar.MenuItem>
       </Sidebar.Menu>
     </Sidebar.Footer>
+  {/if}
   </Sidebar.Root>
-{/if}
+
