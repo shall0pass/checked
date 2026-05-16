@@ -442,7 +442,7 @@
   })
 </script>
 
-<main class="container pt-2 min-w-0 w-full overflow-x-auto px-2 md:px-4" style="-webkit-box-orient: vertical; -webkit-box-direction: normal; -webkit-flex-direction: column; flex-direction: column;">
+<main class="container pt-2">
   <section class="space-y-6">
     <h1 class="text-3xl font-bold">Settings</h1>
 
