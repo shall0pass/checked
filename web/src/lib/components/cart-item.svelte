@@ -19,10 +19,10 @@
   let checkboxId = $derived(`cart-item-${itemId}`)
 </script>
 
-<li class="mb-2 flex justify-between items-center">
+<li class="mb-2 flex justify-between items-center min-w-0">
   <label
     for={checkboxId}
-    class="item.purchased flex w-full items-center gap-2 leading-8"
+    class="flex min-w-0 flex-1 items-center gap-2 leading-8"
     class:line-through={item.purchased}
   >
     <Checkbox
@@ -32,7 +32,7 @@
     />
     <span class="flex-1 truncate">{item.text}</span>
   </label>
-  <div class="flex items-center gap-1">
+  <div class="flex shrink-0 items-center gap-1">
     {#if isRare(item) && onEdit}
       <Button
         variant="ghost"

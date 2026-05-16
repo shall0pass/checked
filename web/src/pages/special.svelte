@@ -148,7 +148,7 @@
   }
 </script>
 
-<div class="container pt-2">
+<div class="container max-w-2xl pt-2">
   <div class="flex w-full items-center gap-2">
     {#if editingTitle}
       <input

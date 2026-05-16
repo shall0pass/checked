@@ -68,7 +68,7 @@
 </script>
 
 <div
-  class="flex min-h-12 w-full items-stretch overflow-hidden rounded-md border {editing ? 'border-blue-400' : 'border-input'} {item.inCart
+  class="flex min-h-12 w-full min-w-0 items-stretch overflow-hidden rounded-md border {editing ? 'border-blue-400' : 'border-input'} {item.inCart
     ? 'bg-slate-200 dark:bg-slate-700'
     : 'bg-background'}"
 >
@@ -83,7 +83,7 @@
     />
   {:else}
     <button
-      class="grid flex-1 grid-cols-[auto_1fr_auto] gap-0 px-0 text-sm font-medium"
+      class="grid min-w-0 flex-1 grid-cols-[auto_1fr_auto] gap-0 px-0 text-sm font-medium"
       aria-pressed={item.inCart}
       onclick={toggleInCart}
     >

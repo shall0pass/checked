@@ -73,7 +73,7 @@
   ontouchend={() => (touched = false)}
   ontouchcancel={() => (touched = false)}
   data-select-btn
-  class="duration-250 flex min-h-12 w-full items-stretch overflow-hidden rounded-md border {editing ? 'border-blue-400' : 'border-input'} transition-transform ease-out {touched
+  class="duration-250 flex min-h-12 w-full min-w-0 items-stretch overflow-hidden rounded-md border {editing ? 'border-blue-400' : 'border-input'} transition-transform ease-out {touched
     ? 'scale-[1.03]'
     : ''} {item.inCart ? 'bg-slate-200 dark:bg-slate-700' : 'bg-background'}"
 >
@@ -88,7 +88,7 @@
     />
   {:else}
     <button
-      class="grid flex-1 grid-cols-[auto_1fr_auto] gap-0 px-0 text-sm font-medium"
+      class="grid min-w-0 flex-1 grid-cols-[auto_1fr_auto] gap-0 px-0 text-sm font-medium"
       onclick={toggleInCart}
     >
       <GripVertical class="mx-2 size-4 self-center text-slate-500" />
