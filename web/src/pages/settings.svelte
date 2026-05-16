@@ -442,7 +442,7 @@
   })
 </script>
 
-<main class="container max-w-2xl pt-2">
+<main class="container max-w-2xl px-4 pt-2">
   <section class="space-y-6">
     <h1 class="text-3xl font-bold">Settings</h1>
 

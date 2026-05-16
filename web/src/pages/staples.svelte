@@ -116,7 +116,7 @@
   }
 </script>
 
-<div class="container max-w-2xl pt-2">
+<div class="container max-w-2xl px-4 pt-2">
   <h1 class="text-3xl font-bold mb-4">Staples</h1>
   <div class="mb-4 mt-4 flex flex-col gap-1">
     <Input

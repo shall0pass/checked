@@ -259,7 +259,7 @@ function clearCompletedCartItems() {
 </script>
 
 {#if $root}
-  <div class="container max-w-2xl pt-2">
+  <div class="container max-w-2xl px-4 pt-2">
     <AddItemBlock
       addToCart={addItem}
       suggestionSource={addItemSuggestions}
