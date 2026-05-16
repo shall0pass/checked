@@ -14,7 +14,7 @@
   import { router } from '$stores/router'
   import { openPage } from '@nanostores/router'
 
-  import { getRoot, repo, persistedRootUrl } from '$src/lib/core/repo'
+  import { getRoot, getRepo, persistedRootUrl } from '$src/lib/core/repo'
   import {
     document,
     type AutomergeDocumentStore
@@ -27,8 +27,9 @@
   let rootUrl = $state(getRoot())
   let root = $state<AutomergeDocumentStore<Root> | null>(null)
 
+
   $effect(() => {
-    document<Root>(rootUrl, repo)
+    document<Root>(rootUrl, getRepo())
       .then(store => {
         root = store
       })
@@ -63,10 +64,7 @@
 
   async function setRootId(newRootUrl: AutomergeUrl): Promise<null | string> {
     try {
-      await repo.find(newRootUrl, {
-        // it is needed to make repo throw when the rootID not found.
-        // This way, if we can not load the new document, we'll fall into
-        // the catch statement and won't delete the current data
+      await getRepo().find(newRootUrl, {
         allowableStates: ['ready']
       })
 

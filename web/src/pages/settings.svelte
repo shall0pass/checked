@@ -348,8 +348,13 @@
           link.url.startsWith('automerge:')
       )
 
+
       url = parsed.syncServerUrl
       $syncServerUrl = parsed.syncServerUrl
+      // Ensure repo uses the new sync server before opening documents
+      import('$src/lib/core/repo').then(mod => {
+        mod.setRepoSyncServerUrl(parsed.syncServerUrl as string)
+      })
 
       // Merge imported links with existing, skipping duplicates by url
       const existingLinks = getRootDocLinks()
@@ -362,10 +367,20 @@
       savedRootLinks = replaceRootDocLinks(mergedLinks)
       savedRootLinks = ensureDefaultRootDocLink($persistedRootUrl)
 
-      const activeLink = savedRootLinks.find(link => link.url === $persistedRootUrl)
-      if (activeLink) {
+      let activeLink = savedRootLinks.find(link => link.url === $persistedRootUrl)
+      if (!activeLink && savedRootLinks.length > 0) {
+        // Fallback: activate the first imported list
+        activeLink = savedRootLinks[0]
         rootName = activeLink.name
         newRootId = activeLink.url
+        $persistedRootUrl = activeLink.url
+        toast('Activated first imported list as fallback', { position: 'bottom-center' })
+      } else if (activeLink) {
+        rootName = activeLink.name
+        newRootId = activeLink.url
+      } else {
+        toast.error('No valid list could be activated after import')
+        return
       }
 
       toast.success('List map imported successfully')

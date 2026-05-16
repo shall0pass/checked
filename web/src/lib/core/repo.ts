@@ -23,10 +23,27 @@ export const persistedRootUrl = persistentAtom<AutomergeUrl>(
 
 const rootDocLinks = persistentAtom<string>('checked:rootDocLinks', '[]')
 
-export const repo = new Repo({
-  storage: new IndexedDBStorageAdapter(),
-  network: [new WebSocketClientAdapter(syncServerUrl.get())]
-})
+
+let repoInstance: Repo | null = null
+
+export function getRepo(): Repo {
+  if (!repoInstance) {
+    repoInstance = new Repo({
+      storage: new IndexedDBStorageAdapter(),
+      network: [new WebSocketClientAdapter(syncServerUrl.get())]
+    })
+  }
+  return repoInstance
+}
+
+export function setRepoSyncServerUrl(url: string) {
+  // Set the atom and re-instantiate the repo
+  syncServerUrl.set(url)
+  repoInstance = new Repo({
+    storage: new IndexedDBStorageAdapter(),
+    network: [new WebSocketClientAdapter(url)]
+  })
+}
 
 export function createRootDoc(): AutomergeUrl {
   const handle = repo.create<Root>(defaultState())
