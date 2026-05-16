@@ -14,13 +14,13 @@ const config: Config = {
     container: {
       center: true,
       padding: '2rem',
-      screens: {
-        sm: '320px',
-        md: '600px',   // or your preferred value
-        lg: '800px',
-        xl: '1024px',
-        '2xl': '1280px'
-      }
+      //screens: {
+      //  sm: '320px',
+      //  md: '600px',   // or your preferred value
+      //  lg: '800px',
+      //  xl: '1024px',
+      //  '2xl': '1280px'
+      //}
     },
     extend: {
       colors: {
