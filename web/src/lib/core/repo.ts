@@ -46,7 +46,7 @@ export function setRepoSyncServerUrl(url: string) {
 }
 
 export function createRootDoc(): AutomergeUrl {
-  const handle = repo.create<Root>(defaultState())
+  const handle = getRepo().create<Root>(defaultState())
   return handle.url
 }
 
