@@ -2,6 +2,12 @@
 @config '../tailwind.config.ts';
 
 @layer base {
+  html, body {
+    overflow-x: hidden;
+  }
+  input, button {
+    min-width: 0;
+  }
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;

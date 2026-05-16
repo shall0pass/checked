@@ -7,13 +7,18 @@ import { chromium, devices } from 'playwright';
   const page = await context.newPage();
 
   // Go to the app
-  await page.goto('http://localhost:5173'); // Adjust if your dev server runs elsewhere
+  await page.goto('https://check-95k.pages.dev'); // Use deployed site for screenshots
 
   // Always force viewport size for consistency
   // No need for setViewport, device emulation handles viewport
 
+
   // Step 1: Main page
   await page.screenshot({ path: 'playwright/step1-main.png' });
+
+  // Step 1.5: Type 'a' into the input text box
+  await page.type('input[type="text"]', 'a');
+  await page.waitForTimeout(300);
 
   // Step 2: Open sidebar (simulate tap)
   await page.click('[data-sidebar="trigger"]');
@@ -36,15 +41,6 @@ import { chromium, devices } from 'playwright';
   }
   await page.screenshot({ path: 'playwright/step3-settings.png' });
 
-  // Step 4: Back to main (Shopping List)
-  // Ensure sidebar is open before clicking Shopping List
-  if (!(await page.isVisible('text=Shopping List'))) {
-    await page.click('[data-sidebar="trigger"]');
-    await page.waitForTimeout(300);
-  }
-  await page.click('text=Shopping List');
-  await page.waitForTimeout(500);
-  await page.screenshot({ path: 'playwright/step4-back-main.png' });
 
   await browser.close();
 })();

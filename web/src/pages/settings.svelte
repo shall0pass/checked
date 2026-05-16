@@ -442,11 +442,11 @@
   })
 </script>
 
-<main class="container pt-2">
+<main class="container pt-2 min-w-0 w-full overflow-x-auto px-2 md:px-4" style="-webkit-box-orient: vertical; -webkit-box-direction: normal; -webkit-flex-direction: column; flex-direction: column;">
   <section class="space-y-6">
     <h1 class="text-3xl font-bold">Settings</h1>
 
-    <section class="rounded-lg border p-4">
+    <section class="rounded-lg border p-4 min-w-0 w-full overflow-x-auto" style="-webkit-box-orient: vertical; -webkit-box-direction: normal; -webkit-flex-direction: column; flex-direction: column;">
       <h2 class="mb-3 text-xl font-semibold">About</h2>
 
       <dl class="space-y-2">
@@ -482,7 +482,7 @@
     <section class="rounded-lg border p-4">
       <h2 class="mb-3 text-xl font-semibold">Appearance</h2>
 
-      <div class="grid grid-cols-3 gap-2">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
         <Button
           variant={theme === 'light' ? 'default' : 'outline'}
           onclick={() => (theme = 'light')}>Light</Button
@@ -565,9 +565,10 @@
         {:else}
           {#each savedRootLinks as link, index (getSavedListKey(link, index))}
             <div
-              class={`flex items-center justify-between gap-2 rounded-md border p-2 ${link.url === $persistedRootUrl
+              class={`flex items-center justify-between gap-2 rounded-md border p-2 min-w-0 w-full overflow-x-auto ${link.url === $persistedRootUrl
                 ? 'border-primary bg-primary/10'
                 : ''}`}
+              style="-webkit-box-orient: horizontal; -webkit-box-direction: normal; -webkit-flex-direction: row; flex-direction: row;"
             >
               <div class="min-w-0">
                 <p class="truncate text-sm font-semibold">{link.name}</p>
