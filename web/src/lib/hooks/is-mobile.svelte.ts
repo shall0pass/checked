@@ -1,6 +1,6 @@
 import { untrack } from "svelte";
 
-const MOBILE_BREAKPOINT = 640;
+const MOBILE_BREAKPOINT = 768;
 
 export class IsMobile {
 	#current = $state<boolean>(false);
