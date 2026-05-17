@@ -9,7 +9,7 @@
   import Main from './pages/main.svelte'
   import Settings from './pages/settings.svelte'
   import Special from './pages/special.svelte'
-  import Staples from './pages/staples.svelte'
+  import Common from './pages/staples.svelte'
 
   import { router } from '$stores/router'
   import { openPage } from '@nanostores/router'
@@ -77,29 +77,38 @@
       return `Error: ${(err as Error).message || 'Something went wrong'}`
     }
   }
+    // Read the sidebar cookie so open state persists across page loads
+  function getInitialSidebarOpen(): boolean {
+    if (typeof window === 'undefined') return true
+    const match = window.document.cookie.match(/sidebar:state=([^;]+)/)
+    return match ? match[1] === 'true' : true
+  }
+
+  let sidebarOpen = $state(getInitialSidebarOpen())
+
   $inspect($router)
 </script>
 
-<Sidebar.Provider class="pt-safe flex flex-row">
+<Sidebar.Provider bind:open={sidebarOpen} class="pt-safe">
   <AppSidebar rootDoc={root} />
 
-    <Sidebar.Inset class="touch-pan-y pb-24 min-w-0 max-w-full overflow-x-hidden w-0 flex-1">
-    <Header />
+    <Sidebar.Inset class="touch-pan-y pb-24 min-w-0 overflow-x-hidden">
+      <Header />
 
-    {#if $root}
-      {#if !$router}
-        <Main {root} />
-      {:else if $router.route === 'special'}
-        <Special {root} listId={$router.params.id} />
-      {:else if $router.route === 'staples'}
-        <Staples {root} />
-      {:else if $router.route === 'settings'}
-        <Settings {setRootId} />
-      {:else}
-        <Main {root} />
-      {/if}
+      {#if $root}
+        {#if !$router}
+          <Main {root} />
+        {:else if $router.route === 'special'}
+          <Special {root} listId={$router.params.id} />
+        {:else if $router.route === 'staples'}
+          <Common {root} />
+        {:else if $router.route === 'settings'}
+          <Settings {setRootId} />
+        {:else}
+          <Main {root} />
+        {/if}
 
-<RemoveDrawer {onRemove} />
+        <RemoveDrawer {onRemove} />
         <CreateDrawer {onCreate} />
         <div
           class="z-1 fixed bottom-0 left-0 h-20 w-full bg-gradient-to-t from-background"

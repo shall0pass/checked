@@ -61,7 +61,7 @@
 
   let otherLists = $derived(
     [
-      { id: 'staples', name: 'Staples' },
+      { id: 'common', name: 'Common items' },
       ...($root?.specials.order ?? []).filter(id => String(id) !== listId).map(id => ({
         id: String(id),
         name: $root!.specials.lists[String(id)].name
@@ -80,7 +80,7 @@
     root?.change(doc => {
       const item = doc.items[id]
       if (!item || !isSpecial(item, listId)) return
-      if (targetListId === 'staples') {
+      if (targetListId === 'common') {
         createItem(doc, {
           kind: 'staple',
           text: item.text,

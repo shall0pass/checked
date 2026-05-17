@@ -49,7 +49,7 @@ const editItem = openMoveDrawer;
 let moveTargets = $derived(() => {
   const targets: { id: string; name: string }[] = [];
   // Add staples as a move target
-  targets.push({ id: 'staples', name: 'Staples' });
+  targets.push({ id: 'common', name: 'Common items' });
   // Add all special lists
   if ($root?.specials.order) {
     for (const id of $root.specials.order) {
@@ -113,8 +113,8 @@ let moveTargets = $derived(() => {
     const item = $root.items[id];
     if (!item) return;
     root?.change(doc => {
-      if (targetListId === 'staples') {
-        // Move to staples
+      if (targetListId === 'common') {
+        // Move to common
         createItem(doc, {
           kind: 'staple',
           text: item.text,
@@ -165,7 +165,7 @@ let moveTargets = $derived(() => {
 
       const sourceName =
         item.kind === 'staple'
-          ? 'Staples'
+          ? 'Common items'
           : ($root.specials.lists[item.specialId]?.name ?? 'Special list')
 
       suggestions.push({

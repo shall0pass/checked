@@ -359,7 +359,7 @@
             {#snippet child({ props })}
               <a href={getPagePath(router, 'main')} onclick={goMain} {...props}>
                 <House />
-                <span class="truncate leading-tight">Shopping List</span>
+                <span class="truncate leading-tight">List</span>
               </a>
             {/snippet}
           </Sidebar.MenuButton>
@@ -371,7 +371,7 @@
             {#snippet child({ props })}
               <a href={getPagePath(router, 'staples')} onclick={toggleSidebarIfMobile} {...props}>
                 <ListTodo />
-                <span class="truncate leading-tight">Staples</span>
+                <span class="truncate leading-tight">Common items</span>
               </a>
             {/snippet}
           </Sidebar.MenuButton>

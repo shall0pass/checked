@@ -1,7 +1,7 @@
 {
   "name": "checked",
   "private": true,
-  "version": "0.2.3",
+  "version": "0.2.4",
   "packageManager": "pnpm@11.0.9",
   "type": "module",
   "scripts": {

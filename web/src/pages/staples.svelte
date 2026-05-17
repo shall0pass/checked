@@ -61,10 +61,10 @@
 
 
   let text = $state('')
-  let staples = $derived(
+  let commonItems = $derived(
     $root?.globalOrder.filter(id => isStaple($root.items[id])) || []
   )
-  let staplesRenderKey = $derived(staples.join('|'))
+  let commonItemsRenderKey = $derived(commonItems.join('|'))
 
   function addStaple() {
     let formatted = text.toLowerCase().trim()
@@ -104,10 +104,10 @@
     const { oldIndex, newIndex } = event
     if (typeof oldIndex !== 'number' || typeof newIndex !== 'number') return
     root?.change(doc => {
-      const ids = staples.slice()
+      const ids = commonItems.slice()
       const [removed] = ids.splice(oldIndex, 1)
       ids.splice(newIndex, 0, removed)
-      // update globalOrder for staples only
+      // update globalOrder for common items only
       const stapleIds = doc.globalOrder.filter(id => isStaple(doc.items[id]))
       for (let i = 0; i < stapleIds.length; i++) {
         doc.globalOrder[doc.globalOrder.indexOf(stapleIds[i])] = ids[i]
@@ -117,7 +117,7 @@
 </script>
 
 <div class="container max-w-2xl px-4 pt-2">
-  <h1 class="text-3xl font-bold mb-4">Staples</h1>
+  <h1 class="text-3xl font-bold mb-4">Common items</h1>
   <div class="mb-4 mt-4 flex flex-col gap-1">
     <Input
       class="text-md focus-visible:ring-offset-1"
@@ -127,10 +127,10 @@
     />
     <Button class="mt-3" onclick={addStaple} size="lg">Add</Button>
   </div>
-  {#if staples.length > 0}
-    {#key staplesRenderKey}
+  {#if commonItems.length > 0}
+    {#key commonItemsRenderKey}
       <ul use:sortable={options} class="grid gap-2">
-        {#each staples as id, i (id)}
+        {#each commonItems as id, i (id)}
           <li>
             <RegularItem
               item={$root.items[id] as Staple}
@@ -160,6 +160,6 @@
       </Drawer.Content>
     </Drawer.Root>
   {:else}
-    <div class="text-slate-400 italic">No staples yet</div>
+    <div class="text-slate-400 italic">No common items yet</div>
   {/if}
 </div>
