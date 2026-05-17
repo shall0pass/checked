@@ -17,14 +17,7 @@ const config: Config = {
         DEFAULT: '1rem',   // 16px on mobile — breathing room without overflow
         sm: '1.5rem',      // 24px from 640px+
         lg: '2rem',        // 32px from 1024px+
-      },
     },
-    screens: {
-      sm: '640px',
-      md: '640px',
-      lg: '1024px',
-      xl: '1280px',
-      '2xl': '1536px',
     },
     extend: {
       colors: {
