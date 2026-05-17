@@ -50,3 +50,5 @@ Export a backup of your list id's to import within another browser or share with
 It's recommended to install this using the docker-compose.yaml
 
 There is no security built in to the application.  It is recommended you use something like Cloudflare Access or Tailscale to access your Checked list when away.
+
+To use the sync server included in the docker compose file, use the address `wss://your-server.example.com?access-token=Secret-Token` within the settings page.  Replace `Secret-Token` with the text you chose in the docker compose file.  Use `ws://` for an ip address without encryption and `wss://` for an address that uses a certificate.
