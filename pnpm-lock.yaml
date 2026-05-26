@@ -40,8 +40,8 @@ importers:
         specifier: ^2.5.5
         version: 2.5.5
       '@automerge/automerge-repo-storage-nodefs':
-        specifier: ^2.5.5
-        version: 2.5.5
+        specifier: ^2.5.6
+        version: 2.5.6
       dotenv:
         specifier: ^17.4.2
         version: 17.4.2
@@ -234,8 +234,8 @@ packages:
   '@automerge/automerge-repo-storage-indexeddb@2.5.6':
     resolution: {integrity: sha512-3349orECq2Mj3mo9q6f9ZeXwDkP3lAm6KaivP5+znUpv6Ze+IraE36DdL5GVdzIm+cXej0yWSOCQOalnTMPcQg==}
 
-  '@automerge/automerge-repo-storage-nodefs@2.5.5':
-    resolution: {integrity: sha512-mdGU5CI/04dAV9UnqW9ImKqtilJXCcga3h/yQtw24SDB6HSMXRl3S748FYFF+dc37bFyUgAcaAXQqavCN8siJw==}
+  '@automerge/automerge-repo-storage-nodefs@2.5.6':
+    resolution: {integrity: sha512-euCoSvlcGLVBMzBHSr7txUXIdVI0WwkdXqIbRgGtltdynS/Id2Ps4ngbKSI/1kocRsrTzvx1dW77DxwjArV8xg==}
 
   '@automerge/automerge-repo-svelte-store@2.5.5':
     resolution: {integrity: sha512-nf8huqeMIfZdiaBsyvPHFbBMDXqOlvBop/1j4aFfOniSCHbX5vta9UeMS17tM/6QNToXvjBokUgYc5dZ3Jq7Kg==}
@@ -4214,9 +4214,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@automerge/automerge-repo-storage-nodefs@2.5.5':
+  '@automerge/automerge-repo-storage-nodefs@2.5.6':
     dependencies:
-      '@automerge/automerge-repo': 2.5.5
+      '@automerge/automerge-repo': 2.5.6
       rimraf: 5.0.10
     transitivePeerDependencies:
       - supports-color
