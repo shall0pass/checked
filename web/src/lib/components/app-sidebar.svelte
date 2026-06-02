@@ -436,13 +436,13 @@
         <Sidebar.MenuItem>
           <Sidebar.MenuButton size="lg" onclick={saveListsAndItems}>
             <Download />
-            <span class="truncate leading-tight">Save Lists and Items</span>
+            <span class="truncate leading-tight">Save Notebook</span>
           </Sidebar.MenuButton>
         </Sidebar.MenuItem>
         <Sidebar.MenuItem>
           <Sidebar.MenuButton size="lg" onclick={importListsAndItems}>
             <Upload />
-            <span class="truncate leading-tight">Import Lists and Items</span>
+            <span class="truncate leading-tight">Import Notebook</span>
           </Sidebar.MenuButton>
         </Sidebar.MenuItem>
         <Sidebar.MenuItem>
