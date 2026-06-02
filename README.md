@@ -52,3 +52,17 @@ It's recommended to install this using the docker-compose.yaml
 There is no security built in to the application.  It is recommended you use something like Cloudflare Access or Tailscale to access your Checked list when away.
 
 To use the sync server included in the docker compose file, use the address `wss://your-server.example.com?access-token=Secret-Token` within the settings page.  Replace `Secret-Token` with the text you chose in the docker compose file.  Use `ws://` for an ip address without encryption and `wss://` for an address that uses a certificate.
+
+## Admin Portal
+
+The server now includes an admin portal on a separate port.  By default in `docker-compose.yaml`, it is exposed on `5175` and maps to server `ADMIN_PORT=8081`.
+
+Set a dedicated admin token with `ADMIN_TOKEN`, then open `http://your-server:5175` and enter the token.
+
+The admin portal allows you to:
+
+- View all stored list ids
+- Inspect last accessed and last modified timestamps
+- View list content JSON for each list
+- Delete lists
+- Prune old lists by inactivity age with a dry-run preview

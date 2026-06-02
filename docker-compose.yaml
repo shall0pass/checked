@@ -5,15 +5,18 @@ services:
     ports:
       - "5173:5173" #web app
       - "5174:8080" #sync server
+      - "5175:8081" #admin portal
     restart: unless-stopped
     volumes:
       - /path/to/docker/checked:/app/server/data
     environment:
       - ALLOWED_TOKEN=secret-token
+      - ADMIN_TOKEN=admin-secret-token
       - VITE_ALLOWED_HOSTS=checked.example.com
       - DEMO=false # set to true to enable demo data for Staples and Xmas Market
       - DEBUG_WS=0 #used for debugging websocket connections, set to 1 to enable
       - PORT=8080
+      - ADMIN_PORT=8081
 
 
     
