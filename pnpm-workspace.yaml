@@ -7,3 +7,5 @@ allowBuilds:
   gifsicle: true
   sharp: false
   workerd: false
+overrides:
+  '@types/node': 25.9.1
