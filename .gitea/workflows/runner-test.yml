@@ -1,0 +1,12 @@
+name: Runner Test
+
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: echo "Hello from Gitea Actions"
+      - run: uname -a
