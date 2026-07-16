@@ -51,7 +51,7 @@
     "workbox-routing": "^7.4.1",
     "workbox-strategies": "^7.4.1",
     "workbox-window": "^7.4.1",
-    "wrangler": "^4.87.0"
+    "wrangler": "^4.111.0"
   },
   "dependencies": {
     "@automerge/automerge": "^3.2.6",
