@@ -21,7 +21,7 @@
     "web": "^0.0.2"
   },
   "dependencies": {
-    "pnpm": "^11.0.9"
+    "pnpm": "^11.8.0"
   },
   "pnpm": {
     "overrides": {
