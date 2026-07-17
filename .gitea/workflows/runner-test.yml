@@ -1,12 +1,12 @@
-name: Runner Test
+name: Docker Test
 
 on:
-  push:
+  workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - run: echo "Hello from Gitea Actions"
-      - run: uname -a
+      - run: docker version
+      - run: docker info
