@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.37.0",
-    "@internationalized/date": "^3.12.1",
+    "@internationalized/date": "^3.12.2",
     "@sveltejs/vite-plugin-svelte": "7.1.2",
     "@tailwindcss/postcss": "^4.3.0",
     "@tsconfig/svelte": "^5.0.8",
