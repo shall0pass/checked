@@ -45,8 +45,11 @@ export function setRepoSyncServerUrl(url: string) {
   })
 }
 
-export function createRootDoc(): AutomergeUrl {
+export async function createRootDoc(): Promise<AutomergeUrl> {
   const handle = getRepo().create<Root>(defaultState())
+  await getRepo().find(handle.url, {
+    allowableStates: ['ready']
+  })
   return handle.url
 }
 
@@ -153,11 +156,11 @@ export function ensureDefaultRootDocLink(url: AutomergeUrl): RootDocLink[] {
   return links
 }
 
-export function getRoot(): AutomergeUrl {
+export async function getRoot(): Promise<AutomergeUrl> {
   let rootUrl = persistedRootUrl.get()
 
   if (!rootUrl) {
-    rootUrl = createRootDoc()
+    rootUrl = await createRootDoc()
     persistedRootUrl.set(rootUrl)
   }
 

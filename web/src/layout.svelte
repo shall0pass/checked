@@ -24,18 +24,25 @@
   import { nanoid } from 'nanoid'
   import { createSpecialList, deleteSpecialList } from '$src/lib/core'
 
-  let rootUrl = $state(getRoot())
+  let rootUrl = $state<AutomergeUrl | null>(null)
   let root = $state<AutomergeDocumentStore<Root> | null>(null)
 
+  async function loadRoot() {
+    const url = await getRoot()
+    if (!url) return
+    try {
+      root = await document<Root>(url, getRepo())
+      rootUrl = url
+    } catch (err) {
+    console.error('Failed to load', url, err)
+  }
+
+}
 
   $effect(() => {
-    document<Root>(rootUrl, getRepo())
-      .then(store => {
-        root = store
-      })
-      .catch((err: unknown) => {
-        console.error('Load Root Document:', err)
-      })
+    loadRoot().catch((err: unknown) => {
+      console.error('Load Root Document:', err)
+    })
   })
 
   $effect.root(() => {
@@ -70,7 +77,7 @@
 
       rootUrl = newRootUrl
       persistedRootUrl.set(newRootUrl)
-      openPage(router, 'main')
+      // openPage(router, 'main')
 
       return null
     } catch (err: unknown) {

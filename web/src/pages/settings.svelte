@@ -5,7 +5,6 @@
   import { Label } from '$lib/components/ui/label'
   import * as Drawer from '$lib/components/ui/drawer'
   import { Share, Undo2, Check, Trash2, Download, Upload, Pencil } from 'lucide-svelte'
-
   import { toast } from 'svelte-sonner'
   import { useRegisterSW } from 'virtual:pwa-register/svelte'
 
@@ -19,7 +18,6 @@
     replaceRootDocLinks,
     upsertRootDocLink,
     ensureDefaultRootDocLink,
-    // setRootDocLinks, (not exported)
     type RootDocLink
   } from '$src/lib/core/repo'
   import {
@@ -28,6 +26,8 @@
     type ThemePreference
   } from '$src/stores/theme'
   import { tick } from 'svelte'
+  import { router } from '$stores/router'
+  import { openPage } from '@nanostores/router'
   import type { AutomergeUrl } from '@automerge/automerge-repo'
   import { addAutomergePrefix } from '$src/utils'
 
@@ -415,12 +415,27 @@
     return `${adjective} ${noun}`
   }
 
-  function createNewList() {
-    newRootId = createRootDoc()
+  async function createNewList() {
+    const newUrl = await createRootDoc()
+    console.log('newUrl', newUrl)
+    const newName = generateRandomListName()
 
-    const randomName = generateRandomListName()
+    addRootDocLink(newName, newUrl)
+    savedRootLinks = getRootDocLinks()
 
-    rootName = randomName
+    // const error = await setRootId(newUrl)
+    // if (error != null) {
+    //   toast.error(error)
+    //   return
+    // }
+    // rootName = newName
+    // newRootId = newUrl
+    // savedRootLinks = ensureDefaultRootDocLink(newRootId)
+
+    //activateRootLink(lnk) //takes RootDocLink as argument
+
+    // await tick()
+    // openPage(router, 'main')
 
     toast.success('Created a new list ID', {
       description: 'Save or activate it to start using the new Automerge list'
@@ -501,9 +516,9 @@
   }
 
   function renameRootLink(link: RootDocLink) {
-    if (isDefaultLink(link)) {
-      return
-    }
+    // if (isDefaultLink(link)) {
+    //   return
+    // }
 
     renamingLinkUrl = link.url
     renameNotebookValue = link.name
@@ -581,9 +596,6 @@
   })
 
   async function handleDeleteSavedLink(link: RootDocLink, index: number) {
-    if (isDefaultLink(link)) {
-      return
-    }
 
     const key = getSavedListKey(link, index)
     if (confirmingDeleteKey === key) {
@@ -592,7 +604,9 @@
 
       const deletingActiveLink = link.url === $persistedRootUrl
       if (deletingActiveLink) {
-        const defaultLink = getRootDocLinks().find(savedLink => isDefaultLink(savedLink))
+        const links = getRootDocLinks()
+        const defaultLink = links.find(savedLink => isDefaultLink(savedLink)) ?? links[0]
+
         if (!defaultLink) {
           toast.error('Default list link is missing and cannot be activated')
           return
@@ -668,7 +682,7 @@
       listMap: linksToExport
     }
 
-    const fileName = 'checked-library-map.json'
+    const fileName = 'checked-library.json'
     const contents = JSON.stringify(payload, null, 2)
 
     try {
@@ -956,27 +970,27 @@
         class="mt-3 w-full"
         onclick={saveRootLink}>Save Link</Button
       >
-      <Button
+      <!-- <Button
         variant="secondary"
         class="mt-3 w-full"
         onclick={() => (newRootId = $persistedRootUrl)}><Undo2 />Reset</Button
-      >
+      > -->
       <Button
         variant="secondary"
         class="mt-3 w-full"
         onclick={createNewList}>Create New List</Button
       >
-      <Button
+      <!-- <Button
         variant="secondary"
         class="mt-3 w-full"
         disabled={isShareDisabled}
         onclick={share}><Share />Copy & Share</Button
-      >
-      <Button
+      > -->
+      <!-- <Button
         disabled={isUpdateDisabled}
         class="mt-3 w-full"
         onclick={updateRootDoc}><Check />Activate Entered List</Button
-      >
+      > -->
 
       <div class="mt-4 space-y-2">
         <p class="text-sm font-medium">Notebooks</p>
@@ -999,7 +1013,6 @@
                   onclick={() => activateRootLink(link)}
                   >{link.url === $persistedRootUrl ? 'Active' : 'Use'}</Button
                 >
-                {#if !isDefaultLink(link)}
                   <button
                     class="rounded-md border px-3 py-2 text-slate-500 transition-colors duration-200 hover:text-slate-800"
                     aria-label={`Rename saved list ${link.name}`}
@@ -1007,8 +1020,6 @@
                   >
                     <Pencil class="size-4" />
                   </button>
-                {/if}
-                {#if !isDefaultLink(link)}
                   <button
                     class={`relative overflow-hidden rounded-md border px-3 py-2 transition-colors duration-200 ${confirmingDeleteKey ===
                     getSavedListKey(link, index)
@@ -1030,7 +1041,6 @@
                         : 'text-slate-500'}`}
                     />
                   </button>
-                {/if}
               </div>
             </div>
           {/each}
