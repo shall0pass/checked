@@ -44,7 +44,7 @@ jobs:
 
       - name: Build and Push
         run: |
-          IMAGE="${{ secrets.REGISTRY_URL }}"/"${{ secrets.REGISTRY_USER }}"/checked"
+          IMAGE=""${{ secrets.REGISTRY_URL }}"/"${{ secrets.REGISTRY_USER }}"/checked"
             - name: Login to Gitea Registry
 
           docker buildx build \
