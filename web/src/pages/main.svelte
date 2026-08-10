@@ -12,9 +12,10 @@ import { sortable } from '../sortable'
 
 import { type AutomergeDocumentStore } from '@automerge/automerge-repo-svelte-store'
 import {
-  type Root,
+  type Notebook,
   type Staple,
   isStaple,
+  isAnyListItem,
   type ItemKind
 } from '$src/lib/core/types'
 import {
@@ -31,7 +32,7 @@ import {
 const editItem = openMoveDrawer;
 
   interface Props {
-    root: AutomergeDocumentStore<Root> | null
+    root: AutomergeDocumentStore<Notebook> | null
   }
   const { root }: Props = $props()
 
@@ -50,7 +51,7 @@ let moveTargets = $derived(() => {
   const targets: { id: string; name: string }[] = [];
   // Add staples as a move target
   targets.push({ id: 'common', name: 'Common items' });
-  // Add all special lists
+  // Add all lists
   if ($root?.specials.order) {
     for (const id of $root.specials.order) {
       targets.push({ id: String(id), name: $root.specials.lists[String(id)].name });
@@ -96,7 +97,7 @@ let moveTargets = $derived(() => {
   //     const item = doc.items[id]
   //     if (!item || !isStaple(item)) return
   //     createItem(doc, {
-  //       kind: 'special',
+  //       kind: 'inList',
   //       text: item.text,
   //       purchased: false,
   //       inCart: false,
@@ -122,9 +123,9 @@ let moveTargets = $derived(() => {
           inCart: true
         });
       } else {
-        // Move to special list
+        // Move to list
         createItem(doc, {
-          kind: 'special',
+          kind: 'inList',
           text: item.text,
           purchased: false,
           inCart: true,
@@ -141,7 +142,7 @@ let moveTargets = $derived(() => {
   )
 
   let regularCartIds = $derived(
-    cartIds.filter(id => $root?.items[id].kind !== 'special')
+    cartIds.filter(id => $root && !isAnyListItem($root.items[id]))
   )
   let regularCartRenderKey = $derived(regularCartIds.join('|'))
 
@@ -156,7 +157,7 @@ let moveTargets = $derived(() => {
 
     const suggestions: AddItemSuggestion[] = []
     for (const [id, item] of Object.entries($root.items)) {
-      if (item.kind !== 'staple' && item.kind !== 'special') {
+      if (!isStaple(item) && !isAnyListItem(item)) {
         continue
       }
 
@@ -166,7 +167,7 @@ let moveTargets = $derived(() => {
       const sourceName =
         item.kind === 'staple'
           ? 'Common items'
-          : ($root.specials.lists[item.specialId]?.name ?? 'Special list')
+          : ($root.specials.lists[item.specialId]?.name ?? 'List')
 
       suggestions.push({
         id,
@@ -178,13 +179,13 @@ let moveTargets = $derived(() => {
     return suggestions
   })
 
-  type SpecialGroup = { listId: string; name: string; ids: string[] }
-  let specialCartGroups = $derived.by<SpecialGroup[]>(() => {
+  type ListGroup = { listId: string; name: string; ids: string[] }
+  let listCartGroups = $derived.by<ListGroup[]>(() => {
     if (!$root) return []
     const seen = new Map<string, string[]>()
     for (const id of cartIds) {
       const item = $root.items[id]
-      if (item.kind === 'special') {
+      if (isAnyListItem(item)) {
         const bucket = seen.get(item.specialId)
         if (bucket) bucket.push(id)
         else seen.set(item.specialId, [id])
@@ -298,7 +299,7 @@ function clearCompletedCartItems() {
     {/if}
 
 
-    {#each specialCartGroups as group (group.listId)}
+    {#each listCartGroups as group (group.listId)}
       <details class="mt-3" open>
         <summary
           class="flex cursor-pointer select-none items-center gap-2 rounded-md px-1 py-1 text-sm font-semibold text-slate-600 hover:bg-slate-100"

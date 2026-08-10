@@ -8,31 +8,31 @@
 
   import Main from './pages/main.svelte'
   import Settings from './pages/settings.svelte'
-  import Special from './pages/special.svelte'
+  import ListPage from './pages/list.svelte'
   import Common from './pages/staples.svelte'
 
   import { router } from '$stores/router'
   import { openPage } from '@nanostores/router'
 
-  import { getRoot, getRepo, persistedRootUrl } from '$src/lib/core/repo'
+  import { getNotebookUrl, getRepo, persistedNotebookUrl } from '$src/lib/core/repo'
   import {
     document,
     type AutomergeDocumentStore
   } from '@automerge/automerge-repo-svelte-store'
-  import { type Root } from '$src/lib/core/types'
+  import { type Notebook } from '$src/lib/core/types'
   import type { AutomergeUrl } from '@automerge/automerge-repo'
   import { nanoid } from 'nanoid'
-  import { createSpecialList, deleteSpecialList } from '$src/lib/core'
+  import { createList, deleteList } from '$src/lib/core'
 
-  let rootUrl = $state<AutomergeUrl | null>(null)
-  let root = $state<AutomergeDocumentStore<Root> | null>(null)
+  let notebookUrl = $state<AutomergeUrl | null>(null)
+  let root = $state<AutomergeDocumentStore<Notebook> | null>(null)
 
-  async function loadRoot() {
-    const url = await getRoot()
+  async function loadNotebook() {
+    const url = await getNotebookUrl()
     if (!url) return
     try {
-      root = await document<Root>(url, getRepo())
-      rootUrl = url
+      root = await document<Notebook>(url, getRepo())
+      notebookUrl = url
     } catch (err) {
     console.error('Failed to load', url, err)
   }
@@ -40,8 +40,8 @@
 }
 
   $effect(() => {
-    loadRoot().catch((err: unknown) => {
-      console.error('Load Root Document:', err)
+    loadNotebook().catch((err: unknown) => {
+      console.error('Load Notebook Document:', err)
     })
   })
 
@@ -53,7 +53,7 @@
 
   function onRemove(id: string) {
     root?.change(doc => {
-      deleteSpecialList(doc, id)
+      deleteList(doc, id)
     })
   }
 
@@ -64,19 +64,19 @@
 
     const id = nanoid()
     root.change(doc => {
-      createSpecialList(doc, id, name)
+      createList(doc, id, name)
     })
     return id
   }
 
-  async function setRootId(newRootUrl: AutomergeUrl): Promise<null | string> {
+  async function setNotebookId(newNotebookUrl: AutomergeUrl): Promise<null | string> {
     try {
-      await getRepo().find(newRootUrl, {
+      await getRepo().find(newNotebookUrl, {
         allowableStates: ['ready']
       })
 
-      rootUrl = newRootUrl
-      persistedRootUrl.set(newRootUrl)
+      notebookUrl = newNotebookUrl
+      persistedNotebookUrl.set(newNotebookUrl)
       // openPage(router, 'main')
 
       return null
@@ -97,7 +97,7 @@
 </script>
 
 <Sidebar.Provider bind:open={sidebarOpen} class="pt-safe">
-  <AppSidebar rootDoc={root} />
+  <AppSidebar notebook={root} />
 
     <Sidebar.Inset class="touch-pan-y pb-24 min-w-0 overflow-x-hidden">
       <Header />
@@ -105,12 +105,12 @@
       {#if $root}
         {#if !$router}
           <Main {root} />
-        {:else if $router.route === 'special'}
-          <Special {root} listId={$router.params.id} />
+        {:else if $router.route === 'list'}
+          <ListPage {root} listId={$router.params.id} />
         {:else if $router.route === 'staples'}
           <Common {root} />
         {:else if $router.route === 'settings'}
-          <Settings {setRootId} />
+          <Settings {setNotebookId} />
         {:else}
           <Main {root} />
         {/if}

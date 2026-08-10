@@ -16,12 +16,12 @@
   import { router } from '$stores/router'
   import { removeDrawer } from '$stores/remove-drawer.svelte'
   import { createDrawer } from '$stores/create-drawer.svelte'
-  import { setSpecialListOrder } from '$src/lib/core'
-  import { isSpecial, isStaple } from '$src/lib/core/types'
+  import { setListOrder } from '$src/lib/core'
+  import { isListItem, isStaple } from '$src/lib/core/types'
 
   import { getPagePath, openPage } from '@nanostores/router'
   import { type AutomergeDocumentStore } from '@automerge/automerge-repo-svelte-store'
-  import type { Root } from '$src/lib/core/types.js'
+  import type { Notebook } from '$src/lib/core/types.js'
   import { toast } from 'svelte-sonner'
 
   type SavePickerWindow = Window & {
@@ -50,13 +50,13 @@
   }
 
   interface Props {
-    rootDoc: AutomergeDocumentStore<Root> | null
+    notebook: AutomergeDocumentStore<Notebook> | null
   }
-  const { rootDoc }: Props = $props()
+  const { notebook }: Props = $props()
 
   let sidebar = useSidebar()
   let appVersion = $state(__APP_VERSION__)
-  let specialListsMenuEl = $state<HTMLUListElement | null>(null)
+  let listsMenuEl = $state<HTMLUListElement | null>(null)
 
   function toggleSidebarIfMobile() {
     if (sidebar.isMobile) {
@@ -73,7 +73,7 @@
     createDrawer.open()
   }
   function onRemove(id: string, name: string) {
-    removeDrawer.specialList = { id, name }
+    removeDrawer.list = { id, name }
     toggleSidebarIfMobile()
     removeDrawer.open()
   }
@@ -84,33 +84,33 @@
     toggleSidebarIfMobile()
   }
 
-  async function saveListsAndItems() {
+  async function saveNotebook() {
     try {
-      if (!rootDoc) {
-        throw new Error('Active list data is not ready yet')
+      if (!notebook) {
+        throw new Error('Active notebook data is not ready yet')
       }
 
-      const rootData = rootDoc.handle.doc()
-      if (!rootData) {
-        throw new Error('Active list data is not ready yet')
+      const notebookData = notebook.handle.doc()
+      if (!notebookData) {
+        throw new Error('Active notebook data is not ready yet')
       }
 
-      const staples = rootData.globalOrder
-        .filter(id => isStaple(rootData.items[id]))
+      const staples = notebookData.globalOrder
+        .filter(id => isStaple(notebookData.items[id]))
         .map(id => ({
-          text: rootData.items[id].text,
-          inCart: rootData.items[id].inCart,
-          purchased: rootData.items[id].purchased
+          text: notebookData.items[id].text,
+          inCart: notebookData.items[id].inCart,
+          purchased: notebookData.items[id].purchased
         }))
 
-      const specialLists = rootData.specials.order.map(specialId => {
-        const name = rootData.specials.lists[specialId]?.name ?? 'Unnamed List'
-        const items = rootData.globalOrder
-          .filter(id => isSpecial(rootData.items[id], specialId))
+      const lists = notebookData.specials.order.map(listId => {
+        const name = notebookData.specials.lists[listId]?.name ?? 'Unnamed List'
+        const items = notebookData.globalOrder
+          .filter(id => isListItem(notebookData.items[id], listId))
           .map(id => ({
-            text: rootData.items[id].text,
-            inCart: rootData.items[id].inCart,
-            purchased: rootData.items[id].purchased
+            text: notebookData.items[id].text,
+            inCart: notebookData.items[id].inCart,
+            purchased: notebookData.items[id].purchased
           }))
 
         return {
@@ -121,10 +121,10 @@
 
       const payload = {
         staples,
-        specialLists
+        lists
       }
 
-      const fileName = 'checked-lists-and-items.json'
+      const fileName = 'checked-notebook.json'
       const contents = JSON.stringify(payload, null, 2)
 
       const win = window as SavePickerWindow
@@ -154,22 +154,22 @@
         URL.revokeObjectURL(blobUrl)
       }
 
-      toast.success('Lists and items exported successfully')
+      toast.success('Notebook exported successfully')
     } catch (error: unknown) {
       if ((error as DOMException)?.name === 'AbortError') {
         return
       }
 
       toast.error(
-        `Save lists and items failed: ${(error as Error)?.message || 'Unknown error'}`
+        `Save notebook failed: ${(error as Error)?.message || 'Unknown error'}`
       )
     }
   }
 
-  async function importListsAndItems() {
+  async function importNotebook() {
     try {
-      if (!rootDoc) {
-        throw new Error('Active list data is not ready yet')
+      if (!notebook) {
+        throw new Error('Active notebook data is not ready yet')
       }
 
       const contents = await selectImportFileContents()
@@ -177,8 +177,12 @@
         return
       }
 
+      // Accept both the current export field (`lists`) and the older
+      // field name (`specialLists`) so backups made before this rename
+      // still import correctly.
       const parsed = JSON.parse(contents) as {
         staples?: unknown
+        lists?: unknown
         specialLists?: unknown
       }
 
@@ -186,15 +190,16 @@
         throw new Error('Import file is missing a valid staples array')
       }
 
-      if (!Array.isArray(parsed.specialLists)) {
-        throw new Error('Import file is missing a valid specialLists array')
+      const rawLists = Array.isArray(parsed.lists) ? parsed.lists : parsed.specialLists
+      if (!Array.isArray(rawLists)) {
+        throw new Error('Import file is missing a valid lists array')
       }
 
       let importedStaplesCount = 0
-      let importedSpecialItemsCount = 0
-      let importedSpecialListsCount = 0
+      let importedListItemsCount = 0
+      let importedListsCount = 0
 
-      rootDoc.change(doc => {
+      notebook.change(doc => {
         for (const rawStaple of parsed.staples as Array<Record<string, unknown>>) {
           if (!rawStaple || typeof rawStaple.text !== 'string') continue
 
@@ -209,18 +214,18 @@
           importedStaplesCount += 1
         }
 
-        for (const rawSpecialList of parsed.specialLists as Array<Record<string, unknown>>) {
-          if (!rawSpecialList || typeof rawSpecialList.name !== 'string') continue
+        for (const rawList of rawLists as Array<Record<string, unknown>>) {
+          if (!rawList || typeof rawList.name !== 'string') continue
 
-          const specialListId = nanoid()
-          doc.specials.lists[specialListId] = {
-            name: rawSpecialList.name || 'Imported List'
+          const listId = nanoid()
+          doc.specials.lists[listId] = {
+            name: rawList.name || 'Imported List'
           }
-          doc.specials.order.push(specialListId)
-          importedSpecialListsCount += 1
+          doc.specials.order.push(listId)
+          importedListsCount += 1
 
-          const rawItems = Array.isArray(rawSpecialList.items)
-            ? (rawSpecialList.items as Array<Record<string, unknown>>)
+          const rawItems = Array.isArray(rawList.items)
+            ? (rawList.items as Array<Record<string, unknown>>)
             : []
 
           for (const rawItem of rawItems) {
@@ -231,17 +236,17 @@
               text: rawItem.text,
               inCart: Boolean(rawItem.inCart),
               purchased: Boolean(rawItem.purchased),
-              kind: 'special',
-              specialId: specialListId
+              kind: 'inList',
+              specialId: listId
             }
             doc.globalOrder.push(id)
-            importedSpecialItemsCount += 1
+            importedListItemsCount += 1
           }
         }
       })
 
-      toast.success('Lists and items imported successfully', {
-        description: `${importedStaplesCount} staples, ${importedSpecialListsCount} lists, ${importedSpecialItemsCount} list items`
+      toast.success('Notebook imported successfully', {
+        description: `${importedStaplesCount} staples, ${importedListsCount} lists, ${importedListItemsCount} list items`
       })
     } catch (error: unknown) {
       if ((error as DOMException)?.name === 'AbortError') {
@@ -249,7 +254,7 @@
       }
 
       toast.error(
-        `Import lists and items failed: ${(error as Error)?.message || 'Unknown error'}`
+        `Import notebook failed: ${(error as Error)?.message || 'Unknown error'}`
       )
     }
   }
@@ -296,42 +301,42 @@
     })
   }
 
-  const specialListSortOptions: Sortable.SortableOptions = {
+  const listSortOptions: Sortable.SortableOptions = {
     animation: 150,
     swapThreshold: 0.5,
-    draggable: '[data-special-list-id]',
+    draggable: '[data-list-id]',
     delay: 80,
     delayOnTouchOnly: true,
-    onEnd: handleSpecialListSort
+    onEnd: handleListSort
   }
 
-  function handleSpecialListSort(event: SortableEvent) {
+  function handleListSort(event: SortableEvent) {
     const { oldIndex, newIndex } = event
     if (typeof oldIndex !== 'number' || typeof newIndex !== 'number') return
-    if (!specialListsMenuEl) return
+    if (!listsMenuEl) return
 
     const orderedIds = Array.from(
-      specialListsMenuEl.querySelectorAll('[data-special-list-id]')
+      listsMenuEl.querySelectorAll('[data-list-id]')
     )
-      .map(node => (node as HTMLElement).dataset.specialListId)
+      .map(node => (node as HTMLElement).dataset.listId)
       .filter((id): id is string => Boolean(id))
 
-    rootDoc?.change(doc => {
-      setSpecialListOrder(doc, orderedIds)
+    notebook?.change(doc => {
+      setListOrder(doc, orderedIds)
     })
   }
 
   $effect(() => {
-    if (!specialListsMenuEl) return
+    if (!listsMenuEl) return
 
-    const sortable = Sortable.create(specialListsMenuEl, specialListSortOptions)
+    const sortable = Sortable.create(listsMenuEl, listSortOptions)
     return () => sortable.destroy()
   })
 </script>
 
 
   <Sidebar.Root class="border-r-0" variant="inset">
-    {#if $rootDoc}
+    {#if $notebook}
     <Sidebar.Header class="pt-safe">
       <Sidebar.Menu>
         <!-- Logo -->
@@ -379,30 +384,30 @@
       </Sidebar.Menu>
     </Sidebar.Header>
 
-    <!-- Special Lists -->
+    <!-- Lists -->
     <Sidebar.Content>
       <Sidebar.Group>
-        <Sidebar.GroupLabel>Special Lists</Sidebar.GroupLabel>
+        <Sidebar.GroupLabel>Lists</Sidebar.GroupLabel>
         <Sidebar.GroupAction title="Add List" onclick={onCreate}>
           <Plus />
         </Sidebar.GroupAction>
         <Sidebar.GroupContent>
-          <Sidebar.Menu bind:ref={specialListsMenuEl}>
-            {#if $rootDoc}
-              {@const specialLists = $rootDoc.specials.order}
-              {#if specialLists.length > 0}
-                {#each specialLists as listId (listId)}
-                  {@const listName = $rootDoc.specials.lists[listId].name}
-                  <Sidebar.MenuItem data-special-list-id={listId}>
+          <Sidebar.Menu bind:ref={listsMenuEl}>
+            {#if $notebook}
+              {@const lists = $notebook.specials.order}
+              {#if lists.length > 0}
+                {#each lists as listId (listId)}
+                  {@const listName = $notebook.specials.lists[listId].name}
+                  <Sidebar.MenuItem data-list-id={listId}>
                     <Sidebar.MenuButton
                       size="lg"
                       onclick={toggleSidebarIfMobile}
-                      isActive={$router?.route == 'special' &&
+                      isActive={$router?.route == 'list' &&
                         $router.params.id == listId}
                     >
                       {#snippet child({ props })}
                         <a
-                          href={getPagePath(router, 'special', { id: listId })}
+                          href={getPagePath(router, 'list', { id: listId })}
                           {...props}
                         >
                           <ListTodo />
@@ -423,7 +428,7 @@
                 <Sidebar.MenuItem
                   class="text-sidebar-foreground/65 text-center text-xs italic leading-10"
                 >
-                  No special lists yet
+                  No lists yet
                 </Sidebar.MenuItem>
               {/if}
             {/if}
@@ -434,13 +439,13 @@
     <Sidebar.Footer class="mb-5">
       <Sidebar.Menu>
         <Sidebar.MenuItem>
-          <Sidebar.MenuButton size="lg" onclick={saveListsAndItems}>
+          <Sidebar.MenuButton size="lg" onclick={saveNotebook}>
             <Download />
             <span class="truncate leading-tight">Save Notebook</span>
           </Sidebar.MenuButton>
         </Sidebar.MenuItem>
         <Sidebar.MenuItem>
-          <Sidebar.MenuButton size="lg" onclick={importListsAndItems}>
+          <Sidebar.MenuButton size="lg" onclick={importNotebook}>
             <Upload />
             <span class="truncate leading-tight">Import Notebook</span>
           </Sidebar.MenuButton>

@@ -1,6 +1,6 @@
 export let removeDrawer = $state({
   isOpen: false as boolean,
-  specialList: null as { id: string, name: string } | null,
+  list: null as { id: string, name: string } | null,
   open: () => {
     removeDrawer.isOpen = true
   },

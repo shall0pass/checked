@@ -9,16 +9,16 @@
   import { useRegisterSW } from 'virtual:pwa-register/svelte'
 
   import {
-    createRootDoc,
-    persistedRootUrl,
+    createNotebook,
+    persistedNotebookUrl,
     syncServerUrl,
-    addRootDocLink,
-    getRootDocLinks,
-    removeRootDocLink,
-    replaceRootDocLinks,
-    upsertRootDocLink,
-    ensureDefaultRootDocLink,
-    type RootDocLink
+    addNotebookLink,
+    getNotebookLinks,
+    removeNotebookLink,
+    replaceNotebookLinks,
+    upsertNotebookLink,
+    ensureDefaultNotebookLink,
+    type NotebookLink
   } from '$src/lib/core/repo'
   import {
     highlightColor,
@@ -59,9 +59,9 @@
   const { needRefresh, updateServiceWorker } = useRegisterSW({})
 
   interface Props {
-    setRootId: (newId: AutomergeUrl) => Promise<null | string>
+    setNotebookId: (newId: AutomergeUrl) => Promise<null | string>
   }
-  const { setRootId }: Props = $props()
+  const { setNotebookId }: Props = $props()
 
   function normalizeColorForPicker(value: string): string {
     const trimmed = value.trim()
@@ -86,9 +86,9 @@
   let theme = $state<ThemePreference>($themePreference)
   let highlight = $state(normalizeColorForPicker($highlightColor))
   let url = $state($syncServerUrl)
-  let rootName = $state('default')
-  let newRootId = $state($persistedRootUrl)
-  let savedRootLinks = $state<RootDocLink[]>([])
+  let notebookName = $state('default')
+  let newNotebookId = $state($persistedNotebookUrl)
+  let savedNotebookLinks = $state<NotebookLink[]>([])
   let confirmingDeleteKey = $state<string | null>(null)
   let deleteResetTimer: ReturnType<typeof setTimeout> | null = null
   let isRenameDrawerOpen = $state(false)
@@ -96,16 +96,16 @@
   let renamingLinkUrl = $state<AutomergeUrl | null>(null)
   let renameNotebookValue = $state('')
   let selectedExportKeys = $state<string[]>([])
-  let isShareDisabled = $derived(!newRootId)
-  let isUpdateDisabled = $derived(!newRootId || newRootId === $persistedRootUrl)
+  let isShareDisabled = $derived(!newNotebookId)
+  let isUpdateDisabled = $derived(!newNotebookId || newNotebookId === $persistedNotebookUrl)
 
   $effect(() => {
-    const links = ensureDefaultRootDocLink($persistedRootUrl)
-    savedRootLinks = links
+    const links = ensureDefaultNotebookLink($persistedNotebookUrl)
+    savedNotebookLinks = links
 
-    const activeLink = links.find(link => link.url === $persistedRootUrl)
+    const activeLink = links.find(link => link.url === $persistedNotebookUrl)
     if (activeLink) {
-      rootName = activeLink.name
+      notebookName = activeLink.name
     }
   })
 
@@ -165,17 +165,17 @@
   async function share() {
     if (navigator.share) {
       await navigator.share({
-        text: $persistedRootUrl
+        text: $persistedNotebookUrl
       })
     } else {
-      await navigator.clipboard.writeText($persistedRootUrl)
-      toast.success('List ID has been copied to clipboard', {
+      await navigator.clipboard.writeText($persistedNotebookUrl)
+      toast.success('Notebook ID has been copied to clipboard', {
         description: 'Send it to your friend'
       })
     }
   }
-  
-  function generateRandomListName(): string {
+
+  function generateRandomNotebookName(): string {
     const adjectives = [
       'Ancient',
       'Amber',
@@ -415,55 +415,55 @@
     return `${adjective} ${noun}`
   }
 
-  async function createNewList() {
-    const newUrl = await createRootDoc()
+  async function createNewNotebook() {
+    const newUrl = await createNotebook()
     console.log('newUrl', newUrl)
-    const newName = generateRandomListName()
+    const newName = generateRandomNotebookName()
 
-    addRootDocLink(newName, newUrl)
-    savedRootLinks = getRootDocLinks()
+    addNotebookLink(newName, newUrl)
+    savedNotebookLinks = getNotebookLinks()
 
-    // const error = await setRootId(newUrl)
+    // const error = await setNotebookId(newUrl)
     // if (error != null) {
     //   toast.error(error)
     //   return
     // }
-    // rootName = newName
-    // newRootId = newUrl
-    // savedRootLinks = ensureDefaultRootDocLink(newRootId)
+    // notebookName = newName
+    // newNotebookId = newUrl
+    // savedNotebookLinks = ensureDefaultNotebookLink(newNotebookId)
 
-    //activateRootLink(lnk) //takes RootDocLink as argument
+    //activateNotebookLink(lnk) //takes NotebookLink as argument
 
     // await tick()
     // openPage(router, 'main')
 
-    toast.success('Created a new list ID', {
-      description: 'Save or activate it to start using the new Automerge list'
+    toast.success('Created a new notebook ID', {
+      description: 'Save or activate it to start using the new Automerge notebook'
     })
   }
 
-  async function updateRootDoc() {
+  async function updateNotebook() {
     let loadingToast = toast.loading('Wait...', { position: 'bottom-center' })
 
     // Uncomment the line below to test the toast
     // await new Promise(resolve => setTimeout(resolve, 2000))
 
-    const normalizedRootId = normalizeAutomergeUrl(newRootId)
-    if (!normalizedRootId) {
-      toast.error('Please enter a valid Automerge list ID or URL', {
+    const normalizedNotebookId = normalizeAutomergeUrl(newNotebookId)
+    if (!normalizedNotebookId) {
+      toast.error('Please enter a valid Automerge notebook ID or URL', {
         id: loadingToast
       })
       return
     }
 
-    const error = await setRootId(normalizedRootId)
+    const error = await setNotebookId(normalizedNotebookId)
     if (error != null) {
       toast.error(error, { id: loadingToast })
     } else {
-      upsertRootDocLink(rootName, normalizedRootId)
-      savedRootLinks = ensureDefaultRootDocLink(normalizedRootId)
-      newRootId = normalizedRootId
-      toast.success('Root document has been changed', { id: loadingToast })
+      upsertNotebookLink(notebookName, normalizedNotebookId)
+      savedNotebookLinks = ensureDefaultNotebookLink(normalizedNotebookId)
+      newNotebookId = normalizedNotebookId
+      toast.success('Notebook has been changed', { id: loadingToast })
     }
 
     await tick()
@@ -476,18 +476,18 @@
     return addAutomergePrefix(trimmed)
   }
 
-  async function saveRootLink() {
-    const normalizedRootId = normalizeAutomergeUrl(newRootId)
-    if (!normalizedRootId) {
-      toast.error('Please enter a valid Automerge list ID or URL')
+  async function saveNotebookLink() {
+    const normalizedNotebookId = normalizeAutomergeUrl(newNotebookId)
+    if (!normalizedNotebookId) {
+      toast.error('Please enter a valid Automerge notebook ID or URL')
       return
     }
 
-    const trimmedName = rootName.trim() || 'Unnamed list'
-    addRootDocLink(trimmedName, normalizedRootId)
-    savedRootLinks = getRootDocLinks()
-    newRootId = normalizedRootId
-    toast.success('Saved list link', {
+    const trimmedName = notebookName.trim() || 'Unnamed list'
+    addNotebookLink(trimmedName, normalizedNotebookId)
+    savedNotebookLinks = getNotebookLinks()
+    newNotebookId = normalizedNotebookId
+    toast.success('Saved notebook link', {
       description: `"${trimmedName}" is available in collaboration links`
     })
 
@@ -495,27 +495,27 @@
     window.location.reload()
   }
 
-  async function activateRootLink(link: RootDocLink) {
-    const loadingToast = toast.loading('Switching list...', {
+  async function activateNotebookLink(link: NotebookLink) {
+    const loadingToast = toast.loading('Switching notebook...', {
       position: 'bottom-center'
     })
 
-    const error = await setRootId(link.url)
+    const error = await setNotebookId(link.url)
     if (error != null) {
       toast.error(error, { id: loadingToast })
       return
     }
 
-    rootName = link.name
-    newRootId = link.url
-    savedRootLinks = ensureDefaultRootDocLink(link.url)
+    notebookName = link.name
+    newNotebookId = link.url
+    savedNotebookLinks = ensureDefaultNotebookLink(link.url)
     toast.success(`Now using "${link.name}"`, { id: loadingToast })
 
     await tick()
     window.location.reload()
   }
 
-  function renameRootLink(link: RootDocLink) {
+  function renameNotebookLink(link: NotebookLink) {
     // if (isDefaultLink(link)) {
     //   return
     // }
@@ -528,7 +528,7 @@
   function getUniqueNotebookName(baseNameInput: string, targetUrl: AutomergeUrl): string {
     const baseName = baseNameInput.trim() || 'Unnamed list'
     const usedNames = new Set(
-      savedRootLinks
+      savedNotebookLinks
         .filter(savedLink => savedLink.url !== targetUrl)
         .map(savedLink => savedLink.name.trim().toLowerCase())
         .filter(Boolean)
@@ -548,17 +548,17 @@
     return nextName
   }
 
-  async function submitRenameRootLink() {
+  async function submitRenameNotebookLink() {
     if (!renamingLinkUrl) {
       return
     }
 
     const nextName = getUniqueNotebookName(renameNotebookValue, renamingLinkUrl)
-    upsertRootDocLink(nextName, renamingLinkUrl)
-    savedRootLinks = getRootDocLinks()
+    upsertNotebookLink(nextName, renamingLinkUrl)
+    savedNotebookLinks = getNotebookLinks()
 
-    if (renamingLinkUrl === $persistedRootUrl) {
-      rootName = nextName
+    if (renamingLinkUrl === $persistedNotebookUrl) {
+      notebookName = nextName
     }
 
     toast.success(`Renamed notebook to "${nextName}"`)
@@ -577,54 +577,54 @@
 
   function handleRenameInputKeydown(event: KeyboardEvent) {
     if (event.key === 'Enter') {
-      submitRenameRootLink()
+      submitRenameNotebookLink()
     }
   }
 
-  function getSavedListKey(link: RootDocLink, index: number): string {
+  function getSavedNotebookKey(link: NotebookLink, index: number): string {
     return `${link.url}:${link.name}:${index}`
   }
 
-  function isDefaultLink(link: RootDocLink): boolean {
+  function isDefaultLink(link: NotebookLink): boolean {
     return link.name.trim().toLowerCase() === 'default'
   }
 
-  let sortedRootLinks = $derived.by(() => {
-    const defaultLinks = savedRootLinks.filter(isDefaultLink)
-    const otherLinks = savedRootLinks.filter(link => !isDefaultLink(link))
+  let sortedNotebookLinks = $derived.by(() => {
+    const defaultLinks = savedNotebookLinks.filter(isDefaultLink)
+    const otherLinks = savedNotebookLinks.filter(link => !isDefaultLink(link))
     return [...defaultLinks, ...otherLinks]
   })
 
-  async function handleDeleteSavedLink(link: RootDocLink, index: number) {
+  async function handleDeleteSavedLink(link: NotebookLink, index: number) {
 
-    const key = getSavedListKey(link, index)
+    const key = getSavedNotebookKey(link, index)
     if (confirmingDeleteKey === key) {
       confirmingDeleteKey = null
       if (deleteResetTimer) clearTimeout(deleteResetTimer)
 
-      const deletingActiveLink = link.url === $persistedRootUrl
+      const deletingActiveLink = link.url === $persistedNotebookUrl
       if (deletingActiveLink) {
-        const links = getRootDocLinks()
+        const links = getNotebookLinks()
         const defaultLink = links.find(savedLink => isDefaultLink(savedLink)) ?? links[0]
 
         if (!defaultLink) {
-          toast.error('Default list link is missing and cannot be activated')
+          toast.error('Default notebook link is missing and cannot be activated')
           return
         }
 
-        const switchError = await setRootId(defaultLink.url)
+        const switchError = await setNotebookId(defaultLink.url)
         if (switchError != null) {
           toast.error(switchError)
           return
         }
 
-        rootName = defaultLink.name
-        newRootId = defaultLink.url
+        notebookName = defaultLink.name
+        newNotebookId = defaultLink.url
       }
 
-      savedRootLinks = removeRootDocLink(link.name, link.url)
-      savedRootLinks = getRootDocLinks()
-      toast.success(`Removed "${link.name}" from saved lists`)
+      savedNotebookLinks = removeNotebookLink(link.name, link.url)
+      savedNotebookLinks = getNotebookLinks()
+      toast.success(`Removed "${link.name}" from saved notebooks`)
 
       await tick()
       window.location.reload()
@@ -639,7 +639,7 @@
   }
 
   function openExportDrawer() {
-    selectedExportKeys = sortedRootLinks.map((link, index) => getSavedListKey(link, index))
+    selectedExportKeys = sortedNotebookLinks.map((link, index) => getSavedNotebookKey(link, index))
     isExportDrawerOpen = true
   }
 
@@ -659,9 +659,9 @@
     selectedExportKeys = selectedExportKeys.filter(existingKey => existingKey !== key)
   }
 
-  function getSelectedExportLinks(): RootDocLink[] {
-    return sortedRootLinks.filter((link, index) =>
-      selectedExportKeys.includes(getSavedListKey(link, index))
+  function getSelectedExportLinks(): NotebookLink[] {
+    return sortedNotebookLinks.filter((link, index) =>
+      selectedExportKeys.includes(getSavedNotebookKey(link, index))
     )
   }
 
@@ -672,14 +672,14 @@
       return
     }
 
-    await exportListMap(selectedLinks)
+    await exportLibrary(selectedLinks)
     closeExportDrawer()
   }
 
-  async function exportListMap(linksToExport: RootDocLink[] = getRootDocLinks()) {
+  async function exportLibrary(linksToExport: NotebookLink[] = getNotebookLinks()) {
     const payload = {
       syncServerUrl: $syncServerUrl,
-      listMap: linksToExport
+      notebookMap: linksToExport
     }
 
     const fileName = 'checked-library.json'
@@ -723,15 +723,19 @@
     }
   }
 
-  async function importListMap() {
+  async function importLibrary() {
     try {
       const contents = await selectImportFileContents()
       if (!contents) {
         return
       }
 
+      // Accept both the current export field (`notebookMap`) and older
+      // field names (`listMap`, `savedLists`) so backups made before this
+      // rename still import correctly.
       const parsed = JSON.parse(contents) as {
         syncServerUrl?: unknown
+        notebookMap?: unknown
         listMap?: unknown
         savedLists?: unknown
       }
@@ -740,16 +744,18 @@
         throw new Error('Backup is missing a valid syncServerUrl')
       }
 
-      const importedRawLinks = Array.isArray(parsed.listMap)
-        ? parsed.listMap
-        : parsed.savedLists
+      const importedRawLinks = Array.isArray(parsed.notebookMap)
+        ? parsed.notebookMap
+        : Array.isArray(parsed.listMap)
+          ? parsed.listMap
+          : parsed.savedLists
 
       if (!Array.isArray(importedRawLinks)) {
         throw new Error('Backup is missing a valid library array')
       }
 
       const importedLinks = importedRawLinks.filter(
-        (link): link is RootDocLink =>
+        (link): link is NotebookLink =>
           Boolean(link) &&
           typeof link === 'object' &&
           typeof link.name === 'string' &&
@@ -766,7 +772,7 @@
       })
 
       // Merge imported links with existing, skipping duplicates by url and de-duplicating names.
-      const existingLinks = getRootDocLinks()
+      const existingLinks = getNotebookLinks()
       const mergedLinks = [...existingLinks]
       const usedNames = new Set(
         existingLinks.map(link => link.name.trim().toLowerCase()).filter(Boolean)
@@ -799,22 +805,22 @@
           })
         }
       }
-      savedRootLinks = replaceRootDocLinks(mergedLinks)
-      savedRootLinks = ensureDefaultRootDocLink($persistedRootUrl)
+      savedNotebookLinks = replaceNotebookLinks(mergedLinks)
+      savedNotebookLinks = ensureDefaultNotebookLink($persistedNotebookUrl)
 
-      let activeLink = savedRootLinks.find(link => link.url === $persistedRootUrl)
-      if (!activeLink && savedRootLinks.length > 0) {
-        // Fallback: activate the first imported list
-        activeLink = savedRootLinks[0]
-        rootName = activeLink.name
-        newRootId = activeLink.url
-        $persistedRootUrl = activeLink.url
-        toast('Activated first imported list as fallback', { position: 'bottom-center' })
+      let activeLink = savedNotebookLinks.find(link => link.url === $persistedNotebookUrl)
+      if (!activeLink && savedNotebookLinks.length > 0) {
+        // Fallback: activate the first imported notebook
+        activeLink = savedNotebookLinks[0]
+        notebookName = activeLink.name
+        newNotebookId = activeLink.url
+        $persistedNotebookUrl = activeLink.url
+        toast('Activated first imported notebook as fallback', { position: 'bottom-center' })
       } else if (activeLink) {
-        rootName = activeLink.name
-        newRootId = activeLink.url
+        notebookName = activeLink.name
+        newNotebookId = activeLink.url
       } else {
-        toast.error('No valid list could be activated after import')
+        toast.error('No valid notebook could be activated after import')
         return
       }
 
@@ -950,35 +956,35 @@
     <section class="rounded-lg border p-4">
       <h2 class="mb-3 text-xl font-semibold">Collaboration</h2>
 
-      <Label for="rootname">List Name</Label>
+      <Label for="notebookname">Notebook Name</Label>
       <Input
         type="text"
-        id="rootname"
+        id="notebookname"
         placeholder="default"
-        bind:value={rootName}
+        bind:value={notebookName}
       />
 
-      <Label for="rootdocid" class="mt-3 block">ID (rootdocID)</Label>
+      <Label for="notebookid" class="mt-3 block">ID (notebook ID)</Label>
       <Input
         type="text"
-        id="rootdocid"
+        id="notebookid"
         placeholder="..."
-        bind:value={newRootId}
+        bind:value={newNotebookId}
       />
       <Button
         variant="secondary"
         class="mt-3 w-full"
-        onclick={saveRootLink}>Save Link</Button
+        onclick={saveNotebookLink}>Save Link</Button
       >
       <!-- <Button
         variant="secondary"
         class="mt-3 w-full"
-        onclick={() => (newRootId = $persistedRootUrl)}><Undo2 />Reset</Button
+        onclick={() => (newNotebookId = $persistedNotebookUrl)}><Undo2 />Reset</Button
       > -->
       <Button
         variant="secondary"
         class="mt-3 w-full"
-        onclick={createNewList}>Create New List</Button
+        onclick={createNewNotebook}>Create New Notebook</Button
       >
       <!-- <Button
         variant="secondary"
@@ -989,17 +995,17 @@
       <!-- <Button
         disabled={isUpdateDisabled}
         class="mt-3 w-full"
-        onclick={updateRootDoc}><Check />Activate Entered List</Button
+        onclick={updateNotebook}><Check />Activate Entered Notebook</Button
       > -->
 
       <div class="mt-4 space-y-2">
         <p class="text-sm font-medium">Notebooks</p>
-        {#if savedRootLinks.length === 0}
+        {#if savedNotebookLinks.length === 0}
           <p class="text-muted-foreground text-sm">No saved notebooks yet</p>
         {:else}
-          {#each sortedRootLinks as link, index (getSavedListKey(link, index))}
+          {#each sortedNotebookLinks as link, index (getSavedNotebookKey(link, index))}
             <div
-              class={`flex items-center justify-between gap-2 rounded-md border p-2 ${link.url === $persistedRootUrl
+              class={`flex items-center justify-between gap-2 rounded-md border p-2 ${link.url === $persistedNotebookUrl
                 ? 'border-primary bg-primary/10'
                 : ''}`}
             >
@@ -1009,34 +1015,34 @@
               </div>
               <div class="flex items-center gap-2">
                 <Button
-                  variant={link.url === $persistedRootUrl ? 'default' : 'outline'}
-                  onclick={() => activateRootLink(link)}
-                  >{link.url === $persistedRootUrl ? 'Active' : 'Use'}</Button
+                  variant={link.url === $persistedNotebookUrl ? 'default' : 'outline'}
+                  onclick={() => activateNotebookLink(link)}
+                  >{link.url === $persistedNotebookUrl ? 'Active' : 'Use'}</Button
                 >
                   <button
                     class="rounded-md border px-3 py-2 text-slate-500 transition-colors duration-200 hover:text-slate-800"
-                    aria-label={`Rename saved list ${link.name}`}
-                    onclick={() => renameRootLink(link)}
+                    aria-label={`Rename saved notebook ${link.name}`}
+                    onclick={() => renameNotebookLink(link)}
                   >
                     <Pencil class="size-4" />
                   </button>
                   <button
                     class={`relative overflow-hidden rounded-md border px-3 py-2 transition-colors duration-200 ${confirmingDeleteKey ===
-                    getSavedListKey(link, index)
+                    getSavedNotebookKey(link, index)
                       ? 'border-red-500 text-white'
                       : 'text-slate-500'}`}
-                    aria-label={`Delete saved list ${link.name}`}
+                    aria-label={`Delete saved notebook ${link.name}`}
                     onclick={() => handleDeleteSavedLink(link, index)}
                   >
                     <span
                       class="absolute inset-0 bg-red-500 transition-transform duration-200 ease-out"
-                      style:transform={confirmingDeleteKey === getSavedListKey(link, index)
+                      style:transform={confirmingDeleteKey === getSavedNotebookKey(link, index)
                         ? 'translateX(0)'
                         : 'translateX(100%)'}
                     ></span>
                     <Trash2
                       class={`relative z-10 size-4 transition-colors duration-200 ${confirmingDeleteKey ===
-                      getSavedListKey(link, index)
+                      getSavedNotebookKey(link, index)
                         ? 'text-white'
                         : 'text-slate-500'}`}
                     />
@@ -1049,7 +1055,7 @@
     </section>
 
     <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
-      <Button class="w-full" variant="secondary" onclick={importListMap}
+      <Button class="w-full" variant="secondary" onclick={importLibrary}
         ><Upload />Import Library</Button
       >
       <Button class="w-full" variant="secondary" onclick={openExportDrawer}
@@ -1066,11 +1072,11 @@
           </Drawer.Header>
 
           <div class="flex max-h-80 flex-col gap-3 overflow-y-auto p-4">
-            {#if sortedRootLinks.length === 0}
+            {#if sortedNotebookLinks.length === 0}
               <p class="text-muted-foreground text-sm">No notebooks available to export</p>
             {:else}
-              {#each sortedRootLinks as link, index (getSavedListKey(link, index))}
-                {@const exportKey = getSavedListKey(link, index)}
+              {#each sortedNotebookLinks as link, index (getSavedNotebookKey(link, index))}
+                {@const exportKey = getSavedNotebookKey(link, index)}
                 {@const checkboxId = `export-notebook-${index}`}
                 <label
                   for={checkboxId}
@@ -1116,7 +1122,7 @@
 
             <div class="grid grid-cols-2 gap-2">
               <Button variant="secondary" onclick={closeRenameDrawer}>Cancel</Button>
-              <Button onclick={submitRenameRootLink}>Save</Button>
+              <Button onclick={submitRenameNotebookLink}>Save</Button>
             </div>
           </div>
         </div>

@@ -5,10 +5,10 @@
   import ShoppingBasket from 'lucide-svelte/icons/shopping-basket'
   import Trash2 from 'lucide-svelte/icons/trash-2'
   import Pencil from 'lucide-svelte/icons/pencil'
-  import type { Special } from '$src/lib/core/types'
+  import type { ListItem } from '$src/lib/core/types'
 
   interface Props {
-    item: Special
+    item: ListItem
     remove: () => void
     toggleInCart: () => void
     updateText: (text: string) => void

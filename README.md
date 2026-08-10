@@ -1,6 +1,6 @@
 # Checked
 
-Minimalistic grocery list app with focus on frequently used everyday products.
+Minimalistic, local-first list app. Still great for grocery shopping — organize items into **Lists**, group related Lists into a **Notebook**, and keep all your Notebooks in your **Library**.
 
 ![](playwright/checked-demo.gif)
 
@@ -19,30 +19,36 @@ Note:  This project utilized AI heavily for changes to the original project.
 
 ## Concept
 
+Checked organizes your items into three levels:
+
+- **List** — a named, ordered set of items (a grocery run, a packing list, anything). `Common items` is a special always-present List for things you buy often.
+- **Notebook** — a collection of Lists that sync together as one document. This is what you create, name, and switch between.
+- **Library** — every Notebook your browser knows about. You can export/import your whole Library as a backup or to move between devices.
+
 ### Main Page
 
-The `Shopping List` page is the focus of the application.  Items can be added to the shopping list by entering them into the text box.  An item from the `Staples` list or a user added list in the `Special` section of the sidebar.
+The `Shopping List` page is the focus of the application. Items can be added by entering them into the text box, or picked from the `Common items` List or any of your other Lists in the sidebar.
 
-Items can be added, edited, removed, rearranged, or moved to a different list within each of the lists.  Items added to the `Shopping List` that are not included in other lists can be moved to a list at any time from the `Shopping List`.
+Items can be added, edited, removed, rearranged, or moved to a different List within each of the Lists. Items added to the `Shopping List` that aren't included in other Lists can be moved to a List at any time from the `Shopping List`.
 
 This makes the following workflow:
 
-1. You add your regular items to the list.
+1. You add your regular items to a List.
 2. Before going to the shop, you click on the item you're going to buy.
-3. Once you're in the shop, switch to `Shopping List` tab to see only the items you need. No distractions!
-4. The `Shopping List` will show all items added from across all your lists and provide them in foldable sections for organization.
+3. Once you're in the shop, switch to the `Shopping List` tab to see only the items you need. No distractions!
+4. The `Shopping List` will show all items added from across all your Lists and provide them in foldable sections for organization.
 
-### Special lists
+### Lists
 
-Multiple lists can be managed from the side bar.  The lists can be reorganized by dragging and dropping.  Any items from the special lists can be added to the shopping list in the same way as possible from the `Staples` list. 
+Multiple Lists can be managed from the side bar. Lists can be reorganized by dragging and dropping. Any item from a List can be added to the shopping list the same way as items from `Common items`.
 
 ### Settings Page
 
 Light and Dark mode are available along with personalized color highlighting for themes.
 
-Create multiple lists and easily switch between them.
+Create multiple Notebooks and easily switch between them.
 
-Export a backup of your list id's to import within another browser or share with another user.  Every list in your browser will be exported.  If you do not want to share every list with someone, use the Copy/Share button to share a single list.
+Export a backup of your Library (the Notebook id's saved in your browser) to import within another browser or share with another user. Every Notebook in your browser will be exported. If you do not want to share every Notebook with someone, use the Copy/Share button to share a single Notebook.
 
 
 ## Self Hosting
@@ -61,8 +67,8 @@ Set a dedicated admin token with `ADMIN_TOKEN`, then open `http://your-server:51
 
 The admin portal allows you to:
 
-- View all stored list ids
+- View all stored notebook ids
 - Inspect last accessed and last modified timestamps
-- View list content JSON for each list
-- Delete lists
-- Prune old lists by inactivity age with a dry-run preview
+- View notebook content JSON for each notebook
+- Delete notebooks
+- Prune old notebooks by inactivity age with a dry-run preview

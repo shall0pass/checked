@@ -4,7 +4,7 @@
   import { toast } from 'svelte-sonner'
   import { nanoid } from 'nanoid'
   import { type AutomergeDocumentStore } from '@automerge/automerge-repo-svelte-store'
-  import { isStaple, type Root, type Staple } from '$src/lib/core/types'
+  import { isStaple, type Notebook, type Staple } from '$src/lib/core/types'
   import { toggleInCart, deleteItem, updateItemText, createItem } from '$src/lib/core'
   import * as Drawer from '$lib/components/ui/drawer'
   import { Button } from '$lib/components/ui/button'
@@ -13,7 +13,7 @@
   let moveDrawerOpen = $state(false)
   let movingStapleId = $state<string | null>(null)
 
-  // List of special lists as move targets
+  // List of lists as move targets
   let moveTargets = $derived(() => {
     const targets = [];
     if ($root && $root.specials && $root.specials.order && $root.specials.lists) {
@@ -38,9 +38,9 @@
     const item = $root.items[id];
     if (!item) return;
     root?.change(doc => {
-      // Move staple to special list
+      // Move staple to list
       createItem(doc, {
-        kind: 'special',
+        kind: 'inList',
         text: item.text,
         purchased: false,
         inCart: item.inCart,
@@ -55,7 +55,7 @@
   import Sortable, { type SortableEvent } from 'sortablejs'
 
   interface Props {
-    root: AutomergeDocumentStore<Root> | null
+    root: AutomergeDocumentStore<Notebook> | null
   }
   const { root }: Props = $props()
 
@@ -148,7 +148,7 @@
         <div class="mx-auto mb-4 w-full max-w-sm">
           <Drawer.Header>
             <Drawer.Title>Move to list</Drawer.Title>
-            <Drawer.Description>Choose a special list to move this staple to</Drawer.Description>
+            <Drawer.Description>Choose a list to move this staple to</Drawer.Description>
           </Drawer.Header>
           <div class="flex flex-col gap-2 p-4">
             {#each moveTargets() as list}

@@ -12,19 +12,19 @@
   const { onRemove }: Props = $props()
 
   function remove() {
-    if (!drawer.specialList) {
+    if (!drawer.list) {
       return
     }
 
-    onRemove(drawer.specialList.id)
+    onRemove(drawer.list.id)
 
-    // If currently viewing the deleted list, navigate to Shopping List
-    if ($router?.route === 'special' && $router.params.id === drawer.specialList.id) {
+    // If currently viewing the deleted list, navigate to the main list view
+    if ($router?.route === 'list' && $router.params.id === drawer.list.id) {
       openPage(router, 'main')
     }
 
     drawer.close()
-    toast(`${drawer.specialList.name} has been deleted`, {
+    toast(`${drawer.list.name} has been deleted`, {
       cancel: { label: 'Close' }
     })
   }
@@ -35,7 +35,7 @@
     <div class="mx-auto mb-4 w-full max-w-sm">
       <Drawer.Header>
         <Drawer.Title class="mb-4"
-          >{`Delete ${drawer.specialList?.name}`}</Drawer.Title
+          >{`Delete ${drawer.list?.name}`}</Drawer.Title
         >
         <Drawer.Description>Are you sure?</Drawer.Description>
       </Drawer.Header>

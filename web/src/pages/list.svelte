@@ -1,7 +1,7 @@
 <script lang="ts">
   import Input from '$lib/components/ui/input/input.svelte'
   import Button from '$lib/components/ui/button/button.svelte'
-  import SpecialItem from '$lib/components/special-item.svelte'
+  import ListEntry from '$lib/components/list-item.svelte'
   import * as Drawer from '$lib/components/ui/drawer'
 
   import { nanoid } from 'nanoid'
@@ -9,7 +9,7 @@
   import Sortable, { type SortableEvent } from 'sortablejs'
 
   import { toast } from 'svelte-sonner'
-  import { isSpecial, type Root, type Special } from '$src/lib/core/types'
+  import { isListItem, type Notebook, type ListItem } from '$src/lib/core/types'
   import { type AutomergeDocumentStore } from '@automerge/automerge-repo-svelte-store'
   import {
     toggleInCart,
@@ -19,11 +19,11 @@
     updateItemText
   } from '$src/lib/core'
   import Pencil from 'lucide-svelte/icons/pencil'
-  import { renameSpecialList } from '$src/lib/core'
+  import { renameList } from '$src/lib/core'
 
   interface Props {
     listId: string
-    root: AutomergeDocumentStore<Root> | null
+    root: AutomergeDocumentStore<Notebook> | null
   }
   const { root, listId }: Props = $props()
 
@@ -42,7 +42,7 @@
   function commitTitle() {
     const trimmed = editTitleText.trim()
     if (trimmed && trimmed !== title) {
-      root?.change(doc => renameSpecialList(doc, listId, trimmed))
+      root?.change(doc => renameList(doc, listId, trimmed))
     }
     editingTitle = false
   }
@@ -51,10 +51,10 @@
     if (e.key === 'Enter') { e.preventDefault(); commitTitle() }
     if (e.key === 'Escape') { editingTitle = false }
   }
-  let specials = $derived(
-    $root?.globalOrder.filter(id => isSpecial($root.items[id], listId)) || []
+  let itemIds = $derived(
+    $root?.globalOrder.filter(id => isListItem($root.items[id], listId)) || []
   )
-  let specialsRenderKey = $derived(specials.join('|'))
+  let itemsRenderKey = $derived(itemIds.join('|'))
 
   let movingItemId = $state<string | null>(null)
   let moveDrawerOpen = $state(false)
@@ -79,7 +79,7 @@
     const id = movingItemId
     root?.change(doc => {
       const item = doc.items[id]
-      if (!item || !isSpecial(item, listId)) return
+      if (!item || !isListItem(item, listId)) return
       if (targetListId === 'common') {
         createItem(doc, {
           kind: 'staple',
@@ -89,7 +89,7 @@
         })
       } else {
         createItem(doc, {
-          kind: 'special',
+          kind: 'inList',
           text: item.text,
           purchased: false,
           inCart: false,
@@ -102,7 +102,7 @@
     moveDrawerOpen = false
   }
 
-  function addSpecial() {
+  function addItem() {
     let formatted = text.toLowerCase().trim()
     if (!formatted) {
       toast.error('You have to type something')
@@ -111,7 +111,7 @@
 
     root?.change(doc => {
       createItem(doc, {
-        kind: 'special',
+        kind: 'inList',
         text: text.trim(),
         purchased: false,
         inCart: false,
@@ -123,7 +123,7 @@
 
   function handleKeydown(event: KeyboardEvent) {
     if (event.key === 'Enter') {
-      addSpecial()
+      addItem()
     }
   }
 
@@ -143,7 +143,7 @@
     if (typeof oldIndex !== 'number' || typeof newIndex !== 'number') return
 
     root?.change(doc => {
-      handleDnd(doc, specials, oldIndex, newIndex)
+      handleDnd(doc, itemIds, oldIndex, newIndex)
     })
   }
 </script>
@@ -177,15 +177,15 @@
       required
     />
 
-    <Button class="mt-3" onclick={addSpecial} size="lg">Add</Button>
+    <Button class="mt-3" onclick={addItem} size="lg">Add</Button>
   </div>
 
-  {#key specialsRenderKey}
+  {#key itemsRenderKey}
     <ul use:sortable={options} class="grid gap-2">
-      {#each specials as id (id)}
+      {#each itemIds as id (id)}
         <li>
-          <SpecialItem
-            item={$root?.items[id] as Special}
+          <ListEntry
+            item={$root?.items[id] as ListItem}
             remove={() => root?.change(doc => deleteItem(doc, id))}
             toggleInCart={() => root?.change(doc => toggleInCart(doc, id))}
             updateText={(text) => root?.change(doc => updateItemText(doc, id, text))}
