@@ -14,7 +14,7 @@
   "author": "",
   "dependencies": {
     "@automerge/automerge-repo": "^2.5.6",
-    "@automerge/automerge-repo-network-websocket": "^2.5.5",
+    "@automerge/automerge-repo-network-websocket": "^2.5.6",
     "@automerge/automerge-repo-storage-nodefs": "^2.5.6",
     "dotenv": "^17.4.2",
     "eventemitter3": "^5.0.4",
