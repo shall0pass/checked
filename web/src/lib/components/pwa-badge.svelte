@@ -17,7 +17,7 @@
       toast('App is ready to work offline.', {
         position: 'bottom-center',
         duration: Number.POSITIVE_INFINITY,
-        cancel: { label: 'Close' }
+        cancel: { label: 'Close', onClick: () => {} }
       })
     }
   })
@@ -34,7 +34,8 @@
           }
         },
         cancel: {
-          label: 'Not now'
+          label: 'Not now',
+          onClick: () => {}
         }
       })
     }

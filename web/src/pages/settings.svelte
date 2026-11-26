@@ -4,7 +4,7 @@
   import Input from '$lib/components/ui/input/input.svelte'
   import { Label } from '$lib/components/ui/label'
   import * as Drawer from '$lib/components/ui/drawer'
-  import { Share, Undo2, Check, Trash2, Download, Upload, Pencil } from 'lucide-svelte'
+  import { Share, Undo2, Check, Trash2, Download, Upload, Pencil } from '@lucide/svelte'
   import { toast } from 'svelte-sonner'
   import { useRegisterSW } from 'virtual:pwa-register/svelte'
 
@@ -142,14 +142,16 @@
           }
         },
         cancel: {
-          label: 'Later'
+          label: 'Later',
+          onClick: () => {}
         }
       })
     } else {
       toast('App is up to date.', {
         position: 'bottom-center',
         cancel: {
-          label: 'OK'
+          label: 'OK',
+          onClick: () => {}
         }
       })
     }

@@ -25,7 +25,7 @@
 
     drawer.close()
     toast(`${drawer.list.name} has been deleted`, {
-      cancel: { label: 'Close' }
+      cancel: { label: 'Close', onClick: () => {} }
     })
   }
 </script>

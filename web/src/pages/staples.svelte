@@ -127,7 +127,7 @@
     />
     <Button class="mt-3" onclick={addStaple} size="lg">Add</Button>
   </div>
-  {#if commonItems.length > 0}
+  {#if $root && commonItems.length > 0}
     {#key commonItemsRenderKey}
       <ul use:sortable={options} class="grid gap-2">
         {#each commonItems as id, i (id)}

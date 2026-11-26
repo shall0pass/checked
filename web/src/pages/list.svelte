@@ -18,7 +18,7 @@
     handleDnd,
     updateItemText
   } from '$src/lib/core'
-  import Pencil from 'lucide-svelte/icons/pencil'
+  import Pencil from '@lucide/svelte/icons/pencil'
   import { renameList } from '$src/lib/core'
 
   interface Props {
