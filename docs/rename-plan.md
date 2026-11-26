@@ -1,6 +1,8 @@
 # Rename Plan: Grocery List → List / Notebook / Library
 
-Status: draft, not started · Owner: TBD · Scope: `web/`, `server/`, `README.md`
+Status: **implemented** · Owner: TBD · Scope: `web/`, `server/`, `README.md`
+
+Executed per the decisions recorded in §6. See §8 for how the implementation differs from the mapping tables below (mainly around which persisted property keys/literals had to stay stable).
 
 ## 1. Why
 
@@ -145,10 +147,20 @@ The audit found these are grocery/shopping-specific but are about **item behavio
 ## 6. Open questions to confirm before implementation
 
 1. Confirm the §3 resolution (List = `SpecialList`, Notebook = `Root`/root doc, Library = `RootDocLink[]`) matches product intent.
+    Yes
+
 2. Confirm §4's choice of compatibility layer (a) vs. real data migration (b) for the Automerge document shape.
+    do a compatibility layer
+
 3. Decide whether `/api/lists` can be renamed outright or needs a temporary alias for backward compatibility.
+    this can be renamed outright
+
 4. Decide whether §5.6 (staples/rare/cart/shopping-basket vocabulary) is in scope now, later, or never.
-5. Decide the new name for the `Special` item kind (`kind: 'special'` → `kind: 'listed'`? `'inList'`? something else) — needed before §5.1 can be finalized.
+    don't do this
+
+5. Decide the new name for the `Special` item kind (`kind: 'special'` → `kind: 'listed'`? `'inList'`? something else) — needed 
+before §5.1 can be finalized.
+    change it to kind: inList
 
 ## 7. Suggested execution order
 
@@ -162,3 +174,16 @@ The audit found these are grocery/shopping-specific but are about **item behavio
 8. Grep the whole repo for the old identifiers (`grep -rniE "special|rootDoc|rootLink" web/src server/src`) as a final check that nothing was missed.
 
 Each numbered step above is a reasonable unit for a single PR/commit.
+
+## 8. Implementation notes (post-hoc, what actually shipped)
+
+The tables in §5 describe the rename as originally scoped. Two refinements were made during implementation, both consistent with §6's answers but more precise about what "compatibility layer" (§4/§6 Q2) actually requires at the code level:
+
+- **Type/function names vs. persisted property keys are different things.** A TypeScript type or function name (`SpecialList`, `createSpecialList`, `Root`) is erased at compile time and safe to rename freely. An object property *key* actually written into an Automerge document (`specials`, `lists`, `specialId`) or a `localStorage`/metadata-file field is real, persisted data — renaming the key breaks reading every already-synced document. So `Notebook.specials` and `ListItem.specialId` keep their original key names even though their *type names* (`Notebook`, `ListItem`) were renamed. This wasn't fully spelled out in §5.1's table; treat "keep the key, rename the type" as the general rule wherever this plan's tables imply a field rename on a persisted structure.
+- **The `kind: 'special'` → `kind: 'inList'` rename (§6 Q5) is the one literal *value* that was intentionally changed**, since the user asked for it explicitly and confirmed a compatibility layer (not a data migration) in the same breath. This was implemented as: new items are always written with `kind: 'inList'`; `ListItem.kind` is typed as `'inList' | 'special'`; a new `isAnyListItem()` guard (and `isListItem()`, which now delegates to it) recognize both values, so items persisted before this rename keep working. If `'special'` is ever fully retired, that's a real data migration (§4 option (b)) — not done here.
+- **§5.5's `/api/lists` alias was *not* added.** §6 Q3 said the API can be renamed outright, so only `/api/notebooks*` routes exist; `/api/lists*` returns 404.
+- **`MetadataFile.lists` → `MetadataFile.notebooks` (§5.5) was implemented with a read-side migration**, not left as a hard break: `MetadataStore.init()` accepts either field name on load (preferring `notebooks`, falling back to `lists`) and always persists under `notebooks` going forward. This wasn't explicitly asked for but follows the same "compatibility layer" spirit as §6 Q2, applied to the one other place (besides the client) that persists data to disk.
+- Everything else in §5 (types, functions, repo.ts + localStorage migration, all frontend files, file renames, demo data, README) shipped as scoped, including the §5.4 file renames (`special.svelte` → `pages/list.svelte`, `special-item.svelte` → `lib/components/list-item.svelte`) and the `/special/:id` → `/list/:id` route change.
+- §5.6 (staples/rare/cart/shopping-basket vocabulary) was left untouched, per §6 Q4.
+
+Both packages type-check clean (`pnpm check` in `web/`, `tsc --noEmit` in `server/`) with zero new errors introduced by this rename — the 6 errors `pnpm check` reports are pre-existing (a `svelte-sonner` toast-typing mismatch and one `$root`-possibly-null warning) and were present identically before this work started.

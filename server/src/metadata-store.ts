@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
-export type ListMetadata = {
+export type NotebookMetadata = {
   documentId: string
   firstSeenAt: string
   lastAccessedAt: string
@@ -12,12 +12,12 @@ export type ListMetadata = {
 
 type MetadataFile = {
   version: 1
-  lists: Record<string, ListMetadata>
+  notebooks: Record<string, NotebookMetadata>
 }
 
 export class MetadataStore {
   private filePath: string
-  private data: MetadataFile = { version: 1, lists: {} }
+  private data: MetadataFile = { version: 1, notebooks: {} }
   private persistTimer: ReturnType<typeof setTimeout> | null = null
 
   constructor(filePath: string) {
@@ -29,11 +29,15 @@ export class MetadataStore {
 
     try {
       const raw = await fs.promises.readFile(this.filePath, 'utf8')
-      const parsed = JSON.parse(raw) as Partial<MetadataFile>
-      if (parsed?.version === 1 && parsed?.lists && typeof parsed.lists === 'object') {
+      // Accept both the current field (`notebooks`) and the older field
+      // name (`lists`) so metadata files written before this rename still
+      // load correctly; going forward we always persist under `notebooks`.
+      const parsed = JSON.parse(raw) as Partial<MetadataFile> & { lists?: unknown }
+      const notebooks = parsed?.notebooks ?? parsed?.lists
+      if (parsed?.version === 1 && notebooks && typeof notebooks === 'object') {
         this.data = {
           version: 1,
-          lists: parsed.lists as Record<string, ListMetadata>
+          notebooks: notebooks as Record<string, NotebookMetadata>
         }
       }
     } catch (error: unknown) {
@@ -46,10 +50,10 @@ export class MetadataStore {
 
   touchAccess(documentId: string): void {
     const now = new Date().toISOString()
-    const current = this.data.lists[documentId]
+    const current = this.data.notebooks[documentId]
 
     if (!current) {
-      this.data.lists[documentId] = {
+      this.data.notebooks[documentId] = {
         documentId,
         firstSeenAt: now,
         lastAccessedAt: now,
@@ -71,10 +75,10 @@ export class MetadataStore {
 
   touchWrite(documentId: string, sizeBytes?: number): void {
     const now = new Date().toISOString()
-    const current = this.data.lists[documentId]
+    const current = this.data.notebooks[documentId]
 
     if (!current) {
-      this.data.lists[documentId] = {
+      this.data.notebooks[documentId] = {
         documentId,
         firstSeenAt: now,
         lastAccessedAt: now,
@@ -98,10 +102,10 @@ export class MetadataStore {
 
   updateSize(documentId: string, sizeBytes: number): void {
     const now = new Date().toISOString()
-    const current = this.data.lists[documentId]
+    const current = this.data.notebooks[documentId]
 
     if (!current) {
-      this.data.lists[documentId] = {
+      this.data.notebooks[documentId] = {
         documentId,
         firstSeenAt: now,
         lastAccessedAt: now,
@@ -127,10 +131,10 @@ export class MetadataStore {
 
   markDeleted(documentId: string): void {
     const now = new Date().toISOString()
-    const current = this.data.lists[documentId]
+    const current = this.data.notebooks[documentId]
 
     if (!current) {
-      this.data.lists[documentId] = {
+      this.data.notebooks[documentId] = {
         documentId,
         firstSeenAt: now,
         lastAccessedAt: now,
@@ -144,15 +148,15 @@ export class MetadataStore {
     this.schedulePersist()
   }
 
-  get(documentId: string): ListMetadata | undefined {
-    const item = this.data.lists[documentId]
+  get(documentId: string): NotebookMetadata | undefined {
+    const item = this.data.notebooks[documentId]
     if (!item) return undefined
     return { ...item }
   }
 
-  list(options?: { includeDeleted?: boolean }): ListMetadata[] {
+  list(options?: { includeDeleted?: boolean }): NotebookMetadata[] {
     const includeDeleted = options?.includeDeleted ?? false
-    return Object.values(this.data.lists)
+    return Object.values(this.data.notebooks)
       .filter(item => includeDeleted || !item.deletedAt)
       .map(item => ({ ...item }))
   }

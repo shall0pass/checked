@@ -3,13 +3,28 @@ import { WebSocketClientAdapter } from '@automerge/automerge-repo-network-websoc
 import { IndexedDBStorageAdapter } from '@automerge/automerge-repo-storage-indexeddb'
 import type { AutomergeUrl } from '@automerge/automerge-repo'
 import { persistentAtom } from '@nanostores/persistent'
-import type { Root } from './types'
+import type { Notebook } from './types'
 import { defaultState } from '.'
 
-export interface RootDocLink {
+export interface NotebookLink {
   name: string
   url: AutomergeUrl
 }
+
+// One-time migration: carry values saved under the old (pre-rename)
+// localStorage keys forward to the new keys, so existing users don't lose
+// their saved notebooks. Safe to remove once no meaningful population of
+// users still has only the old keys set.
+function migrateLegacyStorageKey(oldKey: string, newKey: string) {
+  if (typeof localStorage === 'undefined') return
+  if (localStorage.getItem(newKey) !== null) return
+  const legacyValue = localStorage.getItem(oldKey)
+  if (legacyValue === null) return
+  localStorage.setItem(newKey, legacyValue)
+}
+
+migrateLegacyStorageKey('checked:rootDocUrl', 'checked:notebookUrl')
+migrateLegacyStorageKey('checked:rootDocLinks', 'checked:notebookLinks')
 
 export const syncServerUrl = persistentAtom<string>(
   'checked:syncServerUrl',
@@ -17,11 +32,11 @@ export const syncServerUrl = persistentAtom<string>(
   'wss://sync.automerge.org'
 )
 
-export const persistedRootUrl = persistentAtom<AutomergeUrl>(
-  'checked:rootDocUrl'
+export const persistedNotebookUrl = persistentAtom<AutomergeUrl>(
+  'checked:notebookUrl'
 )
 
-const rootDocLinks = persistentAtom<string>('checked:rootDocLinks', '[]')
+const notebookLinks = persistentAtom<string>('checked:notebookLinks', '[]')
 
 
 let repoInstance: Repo | null = null
@@ -45,21 +60,21 @@ export function setRepoSyncServerUrl(url: string) {
   })
 }
 
-export async function createRootDoc(): Promise<AutomergeUrl> {
-  const handle = getRepo().create<Root>(defaultState())
+export async function createNotebook(): Promise<AutomergeUrl> {
+  const handle = getRepo().create<Notebook>(defaultState())
   await getRepo().find(handle.url, {
     allowableStates: ['ready']
   })
   return handle.url
 }
 
-function parseRootDocLinks(raw: string): RootDocLink[] {
+function parseNotebookLinks(raw: string): NotebookLink[] {
   try {
     const parsed = JSON.parse(raw)
     if (!Array.isArray(parsed)) return []
 
     return parsed.filter(
-      (item): item is RootDocLink =>
+      (item): item is NotebookLink =>
         Boolean(item) &&
         typeof item.name === 'string' &&
         typeof item.url === 'string' &&
@@ -70,17 +85,17 @@ function parseRootDocLinks(raw: string): RootDocLink[] {
   }
 }
 
-export function getRootDocLinks(): RootDocLink[] {
-  return parseRootDocLinks(rootDocLinks.get())
+export function getNotebookLinks(): NotebookLink[] {
+  return parseNotebookLinks(notebookLinks.get())
 }
 
-function setRootDocLinks(links: RootDocLink[]) {
-  rootDocLinks.set(JSON.stringify(links))
+function setNotebookLinks(links: NotebookLink[]) {
+  notebookLinks.set(JSON.stringify(links))
 }
 
-export function upsertRootDocLink(name: string, url: AutomergeUrl): RootDocLink[] {
+export function upsertNotebookLink(name: string, url: AutomergeUrl): NotebookLink[] {
   const trimmedName = name.trim() || 'Unnamed list'
-  const links = getRootDocLinks()
+  const links = getNotebookLinks()
   const index = links.findIndex(link => link.url === url)
 
   if (index >= 0) {
@@ -89,13 +104,13 @@ export function upsertRootDocLink(name: string, url: AutomergeUrl): RootDocLink[
     links.push({ name: trimmedName, url })
   }
 
-  setRootDocLinks(links)
+  setNotebookLinks(links)
   return links
 }
 
-export function addRootDocLink(name: string, url: AutomergeUrl): RootDocLink[] {
+export function addNotebookLink(name: string, url: AutomergeUrl): NotebookLink[] {
   const trimmedName = name.trim() || 'Unnamed list'
-  const links = getRootDocLinks()
+  const links = getNotebookLinks()
 
   const alreadyExists = links.some(
     link => link.url === url && link.name === trimmedName
@@ -105,13 +120,13 @@ export function addRootDocLink(name: string, url: AutomergeUrl): RootDocLink[] {
   }
 
   const next = [...links, { name: trimmedName, url }]
-  setRootDocLinks(next)
+  setNotebookLinks(next)
   return next
 }
 
-export function removeRootDocLink(name: string, url: AutomergeUrl): RootDocLink[] {
+export function removeNotebookLink(name: string, url: AutomergeUrl): NotebookLink[] {
   const trimmedName = name.trim()
-  const links = getRootDocLinks()
+  const links = getNotebookLinks()
   const index = links.findIndex(
     link => link.url === url && link.name.trim() === trimmedName
   )
@@ -121,50 +136,50 @@ export function removeRootDocLink(name: string, url: AutomergeUrl): RootDocLink[
   }
 
   const next = [...links.slice(0, index), ...links.slice(index + 1)]
-  setRootDocLinks(next)
+  setNotebookLinks(next)
   return next
 }
 
-export function replaceRootDocLinks(links: RootDocLink[]): RootDocLink[] {
+export function replaceNotebookLinks(links: NotebookLink[]): NotebookLink[] {
   const next = links.filter(
-    (link): link is RootDocLink =>
+    (link): link is NotebookLink =>
       Boolean(link) &&
       typeof link.name === 'string' &&
       typeof link.url === 'string' &&
       link.url.startsWith('automerge:')
   )
 
-  setRootDocLinks(next)
+  setNotebookLinks(next)
   return next
 }
 
-export function ensureDefaultRootDocLink(url: AutomergeUrl): RootDocLink[] {
-  const links = getRootDocLinks()
+export function ensureDefaultNotebookLink(url: AutomergeUrl): NotebookLink[] {
+  const links = getNotebookLinks()
 
   if (links.length === 0) {
     const defaults = [{ name: 'default', url }]
-    setRootDocLinks(defaults)
+    setNotebookLinks(defaults)
     return defaults
   }
 
   if (!links.some(link => link.url === url)) {
     const next = [...links, { name: `list ${links.length + 1}`, url }]
-    setRootDocLinks(next)
+    setNotebookLinks(next)
     return next
   }
 
   return links
 }
 
-export async function getRoot(): Promise<AutomergeUrl> {
-  let rootUrl = persistedRootUrl.get()
+export async function getNotebookUrl(): Promise<AutomergeUrl> {
+  let notebookUrl = persistedNotebookUrl.get()
 
-  if (!rootUrl) {
-    rootUrl = await createRootDoc()
-    persistedRootUrl.set(rootUrl)
+  if (!notebookUrl) {
+    notebookUrl = await createNotebook()
+    persistedNotebookUrl.set(notebookUrl)
   }
 
-  ensureDefaultRootDocLink(rootUrl)
+  ensureDefaultNotebookLink(notebookUrl)
 
-  return rootUrl
+  return notebookUrl
 }

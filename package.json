@@ -1,8 +1,8 @@
 {
   "name": "checked",
   "private": true,
-  "version": "0.2.7",
-  "packageManager": "pnpm@11.0.9",
+  "version": "0.2.8",
+  "packageManager": "pnpm@12.23.0",
   "type": "module",
   "scripts": {
     "dev": "DEMO=true pnpm run -F web -F server dev",
@@ -13,19 +13,14 @@
     "png-to-gif": "convert -bordercolor black -border 4 -delay 300 -loop 0 playwright/step1-main.png playwright/step1a-main.png playwright/step2-sidebar.png playwright/step3-settings.png playwright/checked-demo.gif"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^2.11.1",
+    "@tauri-apps/cli": "^2.12.6",
     "gifsicle": "^7.0.1",
-    "playwright": "^1.60.0",
-    "prettier-plugin-svelte": "^4.1.1",
-    "prettier-plugin-tailwindcss": "^0.8.0",
+    "playwright": "^1.65.1",
+    "prettier-plugin-svelte": "^4.2.0",
+    "prettier-plugin-tailwindcss": "^0.8.1",
     "web": "^0.0.2"
   },
   "dependencies": {
-    "pnpm": "^12.14.0"
-  },
-  "pnpm": {
-    "overrides": {
-      "@types/node": "25.9.1"
-    }
+    "pnpm": "^12.23.0"
   }
 }

@@ -1,9 +1,9 @@
 import {
   isRare,
-  isSpecial,
+  isListItem,
   type Item,
-  type Root,
-  type SpecialLists
+  type Notebook,
+  type Lists
 } from '$src/lib/core/types'
 import { nanoid } from 'nanoid'
 
@@ -12,13 +12,13 @@ const isDemoMode = typeof __DEMO__ !== 'undefined' && __DEMO__
 
 // Base
 
-export function createItem(doc: Root, item: Item) {
+export function createItem(doc: Notebook, item: Item) {
   const id = nanoid()
   doc.items[id] = item
   doc.globalOrder.push(id)
 }
 
-export function deleteItem(doc: Root, itemId: string) {
+export function deleteItem(doc: Notebook, itemId: string) {
   let globalIdx = -1
   for (let i = 0; i < doc.globalOrder.length; i++) {
     if (String(doc.globalOrder[i]) === itemId) { globalIdx = i; break }
@@ -29,7 +29,7 @@ export function deleteItem(doc: Root, itemId: string) {
 }
 
 export function handleDnd(
-  doc: Root,
+  doc: Notebook,
   itemsView: string[],
   oldIndex: number,
   newIndex: number
@@ -48,7 +48,7 @@ export function handleDnd(
 
 // Cart
 
-export function deleteFromCart(doc: Root, itemId: string) {
+export function deleteFromCart(doc: Notebook, itemId: string) {
   if (isRare(doc.items[itemId])) {
     deleteItem(doc, itemId)
   } else {
@@ -57,31 +57,31 @@ export function deleteFromCart(doc: Root, itemId: string) {
   }
 }
 
-export function togglePurchased(doc: Root, itemId: string) {
+export function togglePurchased(doc: Notebook, itemId: string) {
   doc.items[itemId].purchased = !doc.items[itemId].purchased
 }
 
-export function toggleInCart(doc: Root, id: string) {
+export function toggleInCart(doc: Notebook, id: string) {
   doc.items[id].inCart = !doc.items[id].inCart
 }
 
-export function updateItemText(doc: Root, id: string, text: string) {
+export function updateItemText(doc: Notebook, id: string, text: string) {
   doc.items[id].text = text
 }
 
-// Special Lists
+// Lists
 
-export function createSpecialList(doc: Root, id: string, name: string) {
+export function createList(doc: Notebook, id: string, name: string) {
   doc.specials.lists[id] = { name }
   doc.specials.order.push(id)
 }
 
-export function renameSpecialList(doc: Root, id: string, name: string) {
+export function renameList(doc: Notebook, id: string, name: string) {
   doc.specials.lists[id].name = name
 }
 
-export function reorderSpecialLists(
-  doc: Root,
+export function reorderLists(
+  doc: Notebook,
   oldIndex: number,
   newIndex: number
 ) {
@@ -99,7 +99,7 @@ export function reorderSpecialLists(
   doc.specials.order.splice(newIndex, 0, moved)
 }
 
-export function setSpecialListOrder(doc: Root, orderedIds: string[]) {
+export function setListOrder(doc: Notebook, orderedIds: string[]) {
   if (orderedIds.length !== doc.specials.order.length) return
 
   const knownIds = new Set(doc.specials.order.map(id => String(id)))
@@ -110,10 +110,10 @@ export function setSpecialListOrder(doc: Root, orderedIds: string[]) {
   doc.specials.order.splice(0, doc.specials.order.length, ...orderedIds)
 }
 
-export function deleteSpecialList(doc: Root, id: string) {
+export function deleteList(doc: Notebook, id: string) {
   const targetId = String(id)
   const items = Object.entries(doc.items)
-    .filter(([_, item]) => isSpecial(item, targetId))
+    .filter(([_, item]) => isListItem(item, targetId))
     .map(([itemId]) => itemId)
 
   const idx = doc.specials.order.findIndex(listId => String(listId) === targetId)
@@ -128,36 +128,36 @@ export function deleteSpecialList(doc: Root, id: string) {
   }
 }
 
-export function defaultState(): Root {
-  const defaultSpecialId = nanoid()
-  const defaultSpecialItems: Record<string, Item> = {
+export function defaultState(): Notebook {
+  const defaultListId = nanoid()
+  const defaultListItems: Record<string, Item> = {
     [nanoid()]: {
-      text: 'Bratwurst 🌭✨',
+      text: 'Sunscreen 🧴',
       purchased: false,
       inCart: true,
-      kind: 'special',
-      specialId: defaultSpecialId
+      kind: 'inList',
+      specialId: defaultListId
     },
     [nanoid()]: {
-      text: 'Glühwein 🍷🎄',
+      text: 'Passport 📖',
       purchased: false,
       inCart: false,
-      kind: 'special',
-      specialId: defaultSpecialId
+      kind: 'inList',
+      specialId: defaultListId
     },
     [nanoid()]: {
-      text: 'Weihnachtsstollen 🍞🎅',
+      text: 'Phone charger 🔌',
       purchased: false,
       inCart: false,
-      kind: 'special',
-      specialId: defaultSpecialId
+      kind: 'inList',
+      specialId: defaultListId
     },
     [nanoid()]: {
-      text: 'Lebkuchen 🍪⭐',
+      text: 'Snacks for the road 🍫',
       purchased: false,
       inCart: false,
-      kind: 'special',
-      specialId: defaultSpecialId
+      kind: 'inList',
+      specialId: defaultListId
     }
   }
   const defaultStaples: Record<string, Item> = {
@@ -210,12 +210,12 @@ export function defaultState(): Root {
       inCart: false
     }
   }
-  const defaultItems = { ...defaultStaples, ...defaultSpecialItems }
-  const defaultSpecials: SpecialLists = {
-    order: [defaultSpecialId],
+  const defaultItems = { ...defaultStaples, ...defaultListItems }
+  const defaultLists: Lists = {
+    order: [defaultListId],
     lists: {
-      [defaultSpecialId]: {
-        name: 'Xmas Market'
+      [defaultListId]: {
+        name: 'Weekend Trip'
       }
     }
   }
@@ -234,6 +234,6 @@ export function defaultState(): Root {
   return {
     items: defaultItems,
     globalOrder: Object.keys(defaultItems),
-    specials: defaultSpecials
+    specials: defaultLists
   }
 }

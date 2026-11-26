@@ -1,16 +1,16 @@
 <script lang="ts">
   import { buttonVariants } from '$lib/components/ui/button/button.svelte'
   import SidebarTrigger from '../ui/sidebar/sidebar-trigger.svelte'
-  import { getRootDocLinks, persistedRootUrl } from '$src/lib/core/repo'
+  import { getNotebookLinks, persistedNotebookUrl } from '$src/lib/core/repo'
 
   const date = new Date()
   const formattedDate = date.toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
     });
-  
-  const activeLink = getRootDocLinks().find(
-    link => link.url == $persistedRootUrl
+
+  const activeLink = getNotebookLinks().find(
+    link => link.url == $persistedNotebookUrl
   )
 
   const title = activeLink?.name ?? 'default'

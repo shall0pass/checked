@@ -25,7 +25,7 @@
 
   async function createList() {
     const id = onCreate(name)
-    openPage(router, 'special', { id })
+    openPage(router, 'list', { id })
     drawer.close()
   }
 

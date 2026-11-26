@@ -2,8 +2,8 @@
   import { Button } from '$lib/components/ui/button'
   import { Checkbox } from '$lib/components/ui/checkbox'
   import type { Item } from '$src/lib/core/types'
-  import CircleX from 'lucide-svelte/icons/circle-x'
-  import ShoppingBasket from 'lucide-svelte/icons/shopping-basket'
+  import CircleX from '@lucide/svelte/icons/circle-x'
+  import ShoppingBasket from '@lucide/svelte/icons/shopping-basket'
   import { isRare } from '$src/lib/core/types'
 
   interface Props {

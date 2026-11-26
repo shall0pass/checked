@@ -21,7 +21,7 @@ type DocumentStats = {
   exists: boolean
 }
 
-type ListSummary = {
+type NotebookSummary = {
   documentId: string
   url: AutomergeUrl
   firstSeenAt: string | null
@@ -210,15 +210,15 @@ function adminPortalHtml(): string {
   <body>
     <div class="card">
       <h1 style="margin-top:0">Checked Admin Portal</h1>
-      <p class="muted">Manage lists, inspect last access timestamps, and prune stale documents.</p>
+      <p class="muted">Manage notebooks, inspect last access timestamps, and prune stale documents.</p>
       <div class="row">
         <input id="adminToken" type="password" placeholder="Admin token" style="min-width:280px" />
-        <button id="refreshBtn">Refresh Lists</button>
+        <button id="refreshBtn">Refresh Notebooks</button>
       </div>
     </div>
 
     <div class="card">
-      <h2 style="margin-top:0">Prune Old Lists</h2>
+      <h2 style="margin-top:0">Prune Old Notebooks</h2>
       <div class="row">
         <input id="inactiveDays" type="number" min="1" value="90" />
         <button id="dryRunBtn">Preview Prune</button>
@@ -228,32 +228,32 @@ function adminPortalHtml(): string {
     </div>
 
     <div class="card">
-      <h2 style="margin-top:0">All Lists</h2>
-      <div id="status" class="muted">Enter token and press Refresh Lists.</div>
+      <h2 style="margin-top:0">All Notebooks</h2>
+      <div id="status" class="muted">Enter token and press Refresh Notebooks.</div>
       <table>
         <thead>
           <tr>
-            <th>List ID</th>
+            <th>Notebook ID</th>
             <th>Last Accessed</th>
             <th>Last Modified</th>
             <th>Size</th>
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody id="listRows"></tbody>
+        <tbody id="notebookRows"></tbody>
       </table>
     </div>
 
     <dialog id="viewer">
       <div style="padding: 12px; border-bottom: 1px solid #cbd5e1; display:flex; justify-content: space-between; align-items:center;">
-        <strong id="viewerTitle">List Content</strong>
+        <strong id="viewerTitle">Notebook Content</strong>
         <button id="closeViewer">Close</button>
       </div>
       <pre id="viewerContent">Loading...</pre>
     </dialog>
 
     <script>
-      const rowsEl = document.getElementById('listRows')
+      const rowsEl = document.getElementById('notebookRows')
       const statusEl = document.getElementById('status')
       const pruneResultEl = document.getElementById('pruneResult')
       const viewer = document.getElementById('viewer')
@@ -300,14 +300,14 @@ function adminPortalHtml(): string {
         return (bytes / (1024 * 1024)).toFixed(1) + ' MB'
       }
 
-      async function loadLists() {
+      async function loadNotebooks() {
         try {
-          statusEl.textContent = 'Loading lists...'
-          const payload = await api('/api/lists')
-          const lists = payload.lists || []
+          statusEl.textContent = 'Loading notebooks...'
+          const payload = await api('/api/notebooks')
+          const notebooks = payload.notebooks || []
 
           rowsEl.innerHTML = ''
-          for (const item of lists) {
+          for (const item of notebooks) {
             const tr = document.createElement('tr')
             tr.innerHTML = [
               '<td><code>' + item.documentId + '</code></td>',
@@ -323,32 +323,32 @@ function adminPortalHtml(): string {
             rowsEl.appendChild(tr)
           }
 
-          statusEl.textContent = 'Loaded ' + lists.length + ' lists.'
+          statusEl.textContent = 'Loaded ' + notebooks.length + ' notebooks.'
         } catch (error) {
           statusEl.textContent = 'Error: ' + error.message
         }
       }
 
-      async function viewList(id) {
+      async function viewNotebook(id) {
         try {
-          viewerTitle.textContent = 'List ' + id
+          viewerTitle.textContent = 'Notebook ' + id
           viewerContent.textContent = 'Loading...'
           viewer.showModal()
-          const payload = await api('/api/lists/' + encodeURIComponent(id))
+          const payload = await api('/api/notebooks/' + encodeURIComponent(id))
           viewerContent.textContent = JSON.stringify(payload, null, 2)
         } catch (error) {
           viewerContent.textContent = 'Error: ' + error.message
         }
       }
 
-      async function deleteList(id) {
-        if (!confirm('Delete list ' + id + '? This cannot be undone.')) {
+      async function deleteNotebook(id) {
+        if (!confirm('Delete notebook ' + id + '? This cannot be undone.')) {
           return
         }
 
         try {
-          await api('/api/lists/' + encodeURIComponent(id), { method: 'DELETE' })
-          await loadLists()
+          await api('/api/notebooks/' + encodeURIComponent(id), { method: 'DELETE' })
+          await loadNotebooks()
         } catch (error) {
           alert('Delete failed: ' + error.message)
         }
@@ -357,7 +357,7 @@ function adminPortalHtml(): string {
       async function prune(dryRun) {
         try {
           const inactiveDays = Number(document.getElementById('inactiveDays').value)
-          const payload = await api('/api/lists/prune', {
+          const payload = await api('/api/notebooks/prune', {
             method: 'POST',
             body: JSON.stringify({ inactiveDays, dryRun })
           })
@@ -367,13 +367,13 @@ function adminPortalHtml(): string {
             payload.candidateCount + ' candidates, ' +
             payload.prunedCount + ' removed.'
 
-          await loadLists()
+          await loadNotebooks()
         } catch (error) {
           pruneResultEl.textContent = 'Error: ' + error.message
         }
       }
 
-      document.getElementById('refreshBtn').addEventListener('click', loadLists)
+      document.getElementById('refreshBtn').addEventListener('click', loadNotebooks)
       document.getElementById('dryRunBtn').addEventListener('click', () => prune(true))
       document.getElementById('pruneBtn').addEventListener('click', () => prune(false))
       document.getElementById('closeViewer').addEventListener('click', () => viewer.close())
@@ -384,13 +384,13 @@ function adminPortalHtml(): string {
 
         const viewId = target.getAttribute('data-view')
         if (viewId) {
-          void viewList(viewId)
+          void viewNotebook(viewId)
           return
         }
 
         const deleteId = target.getAttribute('data-delete')
         if (deleteId) {
-          void deleteList(deleteId)
+          void deleteNotebook(deleteId)
         }
       })
     </script>
@@ -423,7 +423,7 @@ export function startAdminServer(options: AdminServerOptions) {
     next()
   })
 
-  const buildListSummary = async (documentId: string): Promise<ListSummary> => {
+  const buildNotebookSummary = async (documentId: string): Promise<NotebookSummary> => {
     const stats = await readDocumentStats(baseDir, documentId)
     if (stats.exists) {
       metadata.updateSize(documentId, stats.sizeBytes)
@@ -443,30 +443,30 @@ export function startAdminServer(options: AdminServerOptions) {
     }
   }
 
-  app.get('/api/lists', async (_, res) => {
+  const listDocuments: express.RequestHandler = async (_, res) => {
     try {
       const ids = new Set<string>(await listDocumentIds(baseDir))
       for (const item of metadata.list({ includeDeleted: false })) {
         ids.add(item.documentId)
       }
 
-      const summaries = await Promise.all([...ids].map(documentId => buildListSummary(documentId)))
+      const summaries = await Promise.all([...ids].map(documentId => buildNotebookSummary(documentId)))
       summaries.sort((a, b) => {
         const left = new Date(a.lastAccessedAt || 0).getTime()
         const right = new Date(b.lastAccessedAt || 0).getTime()
         return right - left
       })
 
-      res.json({ lists: summaries })
+      res.json({ notebooks: summaries })
     } catch (error: unknown) {
       jsonError(res, 500, `Failed to list documents: ${(error as Error)?.message || 'Unknown error'}`)
     }
-  })
+  }
 
-  app.get('/api/lists/:documentId', async (req, res) => {
+  const getDocument: express.RequestHandler<{ documentId: string }> = async (req, res) => {
     try {
       const documentId = req.params.documentId
-      const summary = await buildListSummary(documentId)
+      const summary = await buildNotebookSummary(documentId)
       if (!summary.existsOnDisk && !metadata.get(documentId)) {
         jsonError(res, 404, 'Document not found')
         return
@@ -488,7 +488,7 @@ export function startAdminServer(options: AdminServerOptions) {
           contentError = 'Document is currently unavailable'
         }
       } catch (error: unknown) {
-        contentError = (error as Error)?.message || 'Failed to load list content'
+        contentError = (error as Error)?.message || 'Failed to load notebook content'
       }
 
       res.json({
@@ -503,9 +503,9 @@ export function startAdminServer(options: AdminServerOptions) {
         `Failed to load document details: ${(error as Error)?.message || 'Unknown error'}`
       )
     }
-  })
+  }
 
-  app.delete('/api/lists/:documentId', async (req, res) => {
+  const deleteDocument: express.RequestHandler<{ documentId: string }> = async (req, res) => {
     try {
       const documentId = req.params.documentId
       await storage.removeRange([documentId])
@@ -521,9 +521,13 @@ export function startAdminServer(options: AdminServerOptions) {
     } catch (error: unknown) {
       jsonError(res, 500, `Delete failed: ${(error as Error)?.message || 'Unknown error'}`)
     }
-  })
+  }
 
-  app.post('/api/lists/prune', async (req, res) => {
+  app.get('/api/notebooks', listDocuments)
+  app.get('/api/notebooks/:documentId', getDocument)
+  app.delete('/api/notebooks/:documentId', deleteDocument)
+
+  const pruneDocuments: express.RequestHandler = async (req, res) => {
     try {
       const inactiveDays = Number(req.body?.inactiveDays)
       if (!Number.isFinite(inactiveDays) || inactiveDays <= 0) {
@@ -539,7 +543,7 @@ export function startAdminServer(options: AdminServerOptions) {
         ids.add(item.documentId)
       }
 
-      const summaries = await Promise.all([...ids].map(documentId => buildListSummary(documentId)))
+      const summaries = await Promise.all([...ids].map(documentId => buildNotebookSummary(documentId)))
       const candidates = summaries.filter(summary => {
         const lastTouch = summary.lastAccessedAt || summary.lastModifiedAt || summary.firstSeenAt
         if (!lastTouch) {
@@ -581,7 +585,9 @@ export function startAdminServer(options: AdminServerOptions) {
     } catch (error: unknown) {
       jsonError(res, 500, `Prune failed: ${(error as Error)?.message || 'Unknown error'}`)
     }
-  })
+  }
+
+  app.post('/api/notebooks/prune', pruneDocuments)
 
   return app.listen(port, () => {
     console.log(`admin server started at ${port}`)

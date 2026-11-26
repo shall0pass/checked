@@ -13,7 +13,7 @@ services:
       - ALLOWED_TOKEN=secret-token
       - ADMIN_TOKEN=admin-secret-token
       - VITE_ALLOWED_HOSTS=checked.example.com
-      - DEMO=false # set to true to enable demo data for Staples and Xmas Market
+      - DEMO=false # set to true to enable demo data for Common items and Weekend Trip
       - DEBUG_WS=0 #used for debugging websocket connections, set to 1 to enable
       - PORT=8080
       - ADMIN_PORT=8081

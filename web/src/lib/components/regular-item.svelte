@@ -1,10 +1,10 @@
 <script lang="ts">
   import { Button } from '$lib/components/ui/button'
   import * as Drawer from '$lib/components/ui/drawer'
-  import GripVertical from 'lucide-svelte/icons/grip-vertical'
-  import ShoppingBasket from 'lucide-svelte/icons/shopping-basket'
-  import Trash2 from 'lucide-svelte/icons/trash-2'
-  import Pencil from 'lucide-svelte/icons/pencil'
+  import GripVertical from '@lucide/svelte/icons/grip-vertical'
+  import ShoppingBasket from '@lucide/svelte/icons/shopping-basket'
+  import Trash2 from '@lucide/svelte/icons/trash-2'
+  import Pencil from '@lucide/svelte/icons/pencil'
   import type { Staple } from '$src/lib/core/types'
 
   interface Props {

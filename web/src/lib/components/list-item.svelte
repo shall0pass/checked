@@ -1,14 +1,14 @@
 <script lang="ts">
   import { Button } from '$lib/components/ui/button'
   import * as Drawer from '$lib/components/ui/drawer'
-  import GripVertical from 'lucide-svelte/icons/grip-vertical'
-  import ShoppingBasket from 'lucide-svelte/icons/shopping-basket'
-  import Trash2 from 'lucide-svelte/icons/trash-2'
-  import Pencil from 'lucide-svelte/icons/pencil'
-  import type { Special } from '$src/lib/core/types'
+  import GripVertical from '@lucide/svelte/icons/grip-vertical'
+  import ShoppingBasket from '@lucide/svelte/icons/shopping-basket'
+  import Trash2 from '@lucide/svelte/icons/trash-2'
+  import Pencil from '@lucide/svelte/icons/pencil'
+  import type { ListItem } from '$src/lib/core/types'
 
   interface Props {
-    item: Special
+    item: ListItem
     remove: () => void
     toggleInCart: () => void
     updateText: (text: string) => void
